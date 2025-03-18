@@ -2,7 +2,7 @@
 import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 
 useHead({
-    title: 'T&TEC Template Project',
+    title: 'TWMS',
 })
 
 const route = useRoute()
@@ -42,7 +42,7 @@ watch(collapsed, () => {
                     v-if="!collapsed"
                     class="text-2xl transition-opacity duration-300 text-nowrap"
                 >
-                    Template Project
+                    TWMS
                 </div>
             </span>
             <AppMenu :collapsed />
@@ -89,7 +89,7 @@ watch(collapsed, () => {
                                     src="public/logo_full.webp"
                                 >
                                 <div class="text-2xl">
-                                    T&TEC Project Template
+                                    TWMS
                                 </div>
                             </span>
                         </template>
@@ -109,7 +109,7 @@ watch(collapsed, () => {
                         {{ route.meta.title }}
                     </div>
                     <div v-else>
-                        T&TEC Project Template
+                        TWMS
                     </div>
                 </div>
                 <div
