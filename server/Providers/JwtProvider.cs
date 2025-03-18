@@ -1,0 +1,66 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using TemplateProject.Model;
+using Microsoft.IdentityModel.Tokens;
+
+namespace TemplateProject.Providers
+{
+    public class JwtProvider(IConfiguration configuration, EmployeeRolesProvider? employeeRolesProvider = null)
+    {
+        private readonly IConfiguration _configuration = configuration;
+        private readonly EmployeeRolesProvider? _employeeRolesProvider = employeeRolesProvider;
+
+        public async Task<string> GenerateToken(Employee employee)
+        {
+            var jwtSettings = _configuration.GetSection("JWT");
+            var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"] ?? throw new Exception("JWT not configured!"));
+
+            var expiryMinutes = int.Parse(jwtSettings["ExpiryMinutes"] ?? "30");
+
+            List<Claim> claims = [
+                new Claim(ClaimTypes.Name, employee.FullName),
+                new Claim("username", employee.Username),
+                new Claim("employeeNumber", employee.EmployeeNumber)
+            ];
+
+            if (!string.IsNullOrWhiteSpace(employee.Email))
+            {
+                claims.Add(new Claim(ClaimTypes.Email, employee.Email));
+            }
+
+            // Add role claims if the employee roles provider is available
+            if (_employeeRolesProvider != null)
+            {
+                // Add system roles
+                var systemRoles = await _employeeRolesProvider.GetSystemRoleAssignments(employee.EmployeeNumber);
+                foreach (var roleAssignment in systemRoles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, $"system:{roleAssignment.Role.Key}"));
+                }
+
+                // Add department roles
+                var departmentRoles = await _employeeRolesProvider.GetDepartmentRoleAssignments(employee.EmployeeNumber);
+                foreach (var roleAssignment in departmentRoles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, $"department:{roleAssignment.DepartmentCode}:{roleAssignment.Role.Key}"));
+                }
+            }
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddMinutes(expiryMinutes),
+                Issuer = jwtSettings["Issuer"],
+                Audience = jwtSettings["Audience"],
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+    }
+}
