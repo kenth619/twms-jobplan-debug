@@ -1,4 +1,4 @@
-namespace TemplateProject.Providers.Secrets
+namespace TWMSServer.Providers.Secrets
 {
     public class FileSecretsProvider : ISecretsProvider
     {

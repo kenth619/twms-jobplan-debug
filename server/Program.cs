@@ -1,9 +1,9 @@
-using TemplateProject;
-using TemplateProject.Middleware;
-using TemplateProject.Providers;
-using TemplateProject.Providers.AuthProvider;
-using TemplateProject.Providers.EmployeeProvider;
-using TemplateProject.Providers.Secrets;
+using TWMSServer;
+using TWMSServer.Middleware;
+using TWMSServer.Providers;
+using TWMSServer.Providers.AuthProvider;
+using TWMSServer.Providers.EmployeeProvider;
+using TWMSServer.Providers.Secrets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -22,12 +22,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddLogging();
 
-builder.Host.UseSerilog((context, services, configuration) => {
+builder.Host.UseSerilog((context, services, configuration) =>
+{
     configuration
         .ReadFrom.Configuration(context.Configuration)
         .ReadFrom.Services(services)
         .Enrich.FromLogContext();
-   }
+}
 );
 
 if (builder.Environment.IsDevelopment())
@@ -42,10 +43,11 @@ else
 builder.Services.AddSingleton<ISecretsProvider, FileSecretsProvider>();
 
 ISecretsProvider secretsProvider = new FileSecretsProvider(builder.Configuration);
-builder.Services.AddDbContextFactory<TemplateProjectContext>(options => options.UseSqlServer(secretsProvider.GetTemplateProjectConnectionString()));
+builder.Services.AddDbContextFactory<TWMSServerContext>(options => options.UseSqlServer(secretsProvider.GetTemplateProjectConnectionString()));
 
 builder.Services.AddTransient<IEmployeeProvider, EmployeeProvider>();
 builder.Services.AddTransient<EmployeeRolesProvider>();
+builder.Services.AddTransient<EmailProvider>();
 builder.Services.AddTransient<JwtProvider>();
 
 builder.Services.AddAuthentication(options =>
@@ -57,7 +59,7 @@ builder.Services.AddAuthentication(options =>
 {
     var jwtSettings = builder.Configuration.GetSection("JWT");
     var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"] ?? throw new Exception("JWT Secret not configured!"));
-    
+
     options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
@@ -111,7 +113,7 @@ builder.Services.AddSwaggerGen(options =>
         BearerFormat = "JWT",
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
     });
-    
+
     options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
     {
         {
@@ -128,13 +130,18 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddQuartz(q => {});
+builder.Services.AddQuartz(q =>
+{
+    // q.AddJob<TemplateProject.Jobs.LettersJob>(opts => opts.WithIdentity("LettersJob").StoreDurably().DisallowConcurrentExecution());
+});
 
 builder.Services.AddQuartzServer(opt =>
 {
     opt.StartDelay = TimeSpan.FromSeconds(5);
     opt.WaitForJobsToComplete = true;
 });
+
+builder.Services.AddHostedService<TWMSServer.Jobs.JobScheduleInitializer>();
 
 var app = builder.Build();
 

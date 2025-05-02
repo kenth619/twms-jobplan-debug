@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TemplateProject.Model;
-using TemplateProject.Providers.EmployeeProvider;
+using TWMSServer.Model;
+using TWMSServer.Providers.EmployeeProvider;
 
-namespace TemplateProject.Controllers
+namespace TWMSServer.Controllers
 {
     [Authorize]
     [ApiController]

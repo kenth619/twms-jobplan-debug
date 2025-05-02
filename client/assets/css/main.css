@@ -7,6 +7,27 @@
     --primary-color-dark: #4338ca;
 }
 
+@theme inline {
+    --color-datepicker-background: var(--p-form-field-background);
+    --color-datepicker-background-disabled: var(--p-form-field-disabled-background);
+
+    --color-datepicker-border-color: var(--p-form-field-border-color);
+    --color-datepicker-border-color-hover: var(--p-form-field-hover-border-color);
+    --color-datepicker-border-color-invalid: var(--p-form-field-invalid-border-color);
+
+    --color-datepicker-text-color: var(--p-form-field-color);
+    --color-datepicker-text-color-disabled: var(--p-form-field-disabled-color);
+    --color-datepicker-text-color-invalid: var(--p-form-field-invalid-color);
+
+    --spacing-datepicker-padding-x: var(--p-form-field-padding-x);
+    --spacing-datepicker-padding-y: var(--p-form-field-padding-y);
+    --radius-datepicker-border-radius: var(--p-form-field-border-radius);
+    --shadow-datepicker-shadow: var(--p-form-field-shadow);
+
+    --color-menu-background: var(--p-content-background);
+    --color-menu-text: var(--p-content-color);
+}
+
 html {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }

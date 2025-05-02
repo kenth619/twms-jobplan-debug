@@ -1,5 +1,5 @@
 
-namespace TemplateProject.Providers.Secrets
+namespace TWMSServer.Providers.Secrets
 {
     public interface ISecretsProvider
     {

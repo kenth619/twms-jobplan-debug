@@ -1,4 +1,4 @@
-﻿namespace TemplateProject.Model
+﻿namespace TWMSServer.Model
 {
     public class DatabaseImage
     {

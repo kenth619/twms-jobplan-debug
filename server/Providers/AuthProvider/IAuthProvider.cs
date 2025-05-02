@@ -1,4 +1,4 @@
-﻿namespace TemplateProject.Providers.AuthProvider
+﻿namespace TWMSServer.Providers.AuthProvider
 {
     // This interface describes a method for verifying user credentials.
     // It is used during login and when signing changes to a Form.

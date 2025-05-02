@@ -1,8 +1,8 @@
 ﻿﻿using Microsoft.Extensions.Caching.Memory;
-using TemplateProject.Model;
-using TemplateProject.Providers.Secrets;
+using TWMSServer.Model;
+using TWMSServer.Providers.Secrets;
 
-namespace TemplateProject.Providers.EmployeeProvider
+namespace TWMSServer.Providers.EmployeeProvider
 {
     public class CachingEmployeeProvider : IEmployeeProvider
     {

@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TemplateProject.Model;
-using TemplateProject.Model.Enum;
-using TemplateProject.Providers;
-using TemplateProject.Providers.EmployeeProvider;
+using TWMSServer.Model;
+using TWMSServer.Model.Enum;
+using TWMSServer.Providers;
+using TWMSServer.Providers.EmployeeProvider;
 
-namespace TemplateProject.Controllers
+namespace TWMSServer.Controllers
 {
-    [Authorize(Roles = "system:administrator,system:superuser")]
+    [Authorize(Roles = "system:system-administrator,system:superuser")]
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeeRolesController(ILogger<EmployeeRolesController> logger, IEmployeeProvider employeeProvider, EmployeeRolesProvider employeeRolesProvider) : ControllerBase
@@ -57,19 +57,11 @@ namespace TemplateProject.Controllers
         {
             try
             {
-                // Check if user has admin or superuser role
-                if (!await IsAdminOrSuperuser())
-                {
-                    return Forbid("Only administrators and superusers can manage roles");
-                }
-
-                // Validate request
                 if (string.IsNullOrEmpty(request.RoleKey))
                 {
                     return BadRequest("Role key is required");
                 }
 
-                // Get the role from the key
                 SystemRole? role;
                 try
                 {
@@ -80,7 +72,6 @@ namespace TemplateProject.Controllers
                     return BadRequest($"Invalid system role key: {request.RoleKey}");
                 }
 
-                // Assign the role
                 var success = await _employeeRolesProvider.AssignSystemRole(employeeNumber, role);
                 
                 if (!success)
@@ -102,13 +93,6 @@ namespace TemplateProject.Controllers
         {
             try
             {
-                // Check if user has admin or superuser role
-                if (!await IsAdminOrSuperuser())
-                {
-                    return Forbid("Only administrators and superusers can manage roles");
-                }
-
-                // Get the role from the key
                 SystemRole? role;
                 try
                 {
@@ -119,7 +103,6 @@ namespace TemplateProject.Controllers
                     return BadRequest($"Invalid system role key: {roleKey}");
                 }
 
-                // Remove the role
                 var success = await _employeeRolesProvider.RemoveSystemRole(employeeNumber, role);
                 
                 if (!success)
@@ -141,13 +124,6 @@ namespace TemplateProject.Controllers
         {
             try
             {
-                // Check if user has admin or superuser role
-                if (!await IsAdminOrSuperuser())
-                {
-                    return Forbid("Only administrators and superusers can manage roles");
-                }
-
-                // Validate request
                 if (string.IsNullOrEmpty(request.RoleKey))
                 {
                     return BadRequest("Role key is required");
@@ -158,7 +134,6 @@ namespace TemplateProject.Controllers
                     return BadRequest("Department code is required");
                 }
 
-                // Get the role from the key
                 DepartmentRole? role;
                 try
                 {
@@ -169,7 +144,6 @@ namespace TemplateProject.Controllers
                     return BadRequest($"Invalid department role key: {request.RoleKey}");
                 }
 
-                // Assign the role
                 var success = await _employeeRolesProvider.AssignDepartmentRole(employeeNumber, request.DepartmentCode, role);
                 
                 if (!success)
@@ -191,13 +165,6 @@ namespace TemplateProject.Controllers
         {
             try
             {
-                // Check if user has admin or superuser role
-                if (!await IsAdminOrSuperuser())
-                {
-                    return Forbid("Only administrators and superusers can manage roles");
-                }
-
-                // Validate request
                 if (string.IsNullOrEmpty(roleKey))
                 {
                     return BadRequest("Role key is required");
@@ -208,7 +175,6 @@ namespace TemplateProject.Controllers
                     return BadRequest("Department code is required");
                 }
 
-                // Get the role from the key
                 DepartmentRole? role;
                 try
                 {
@@ -219,7 +185,6 @@ namespace TemplateProject.Controllers
                     return BadRequest($"Invalid department role key: {roleKey}");
                 }
 
-                // Remove the role
                 var success = await _employeeRolesProvider.RemoveDepartmentRole(employeeNumber, departmentCode, role);
                 
                 if (!success)
@@ -241,15 +206,8 @@ namespace TemplateProject.Controllers
         {
             try
             {
-                // Check if user has admin or superuser role
-                if (!await IsAdminOrSuperuser())
-                {
-                    return Forbid("Only administrators and superusers can validate role assignments");
-                }
-
                 if (!string.IsNullOrEmpty(roleKey) && !string.IsNullOrEmpty(departmentCode))
                 {
-                    // Validate department role
                     DepartmentRole? role;
                     try
                     {
@@ -265,7 +223,6 @@ namespace TemplateProject.Controllers
                 }
                 else if (!string.IsNullOrEmpty(roleKey))
                 {
-                    // Validate system role
                     SystemRole? role;
                     try
                     {
@@ -290,28 +247,8 @@ namespace TemplateProject.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-
-        private async Task<bool> IsAdminOrSuperuser()
-        {
-            var employeeNumber = User.FindFirst("employeeNumber")?.Value;
-            if (string.IsNullOrEmpty(employeeNumber))
-            {
-                return false;
-            }
-
-            return await _employeeRolesProvider.HasSystemRole(employeeNumber, SystemRole.Administrator) ||
-                   await _employeeRolesProvider.HasSystemRole(employeeNumber, SystemRole.Superuser);
-        }
     }
 
-    public class SystemRoleRequest
-    {
-        public string RoleKey { get; set; } = string.Empty;
-    }
-
-    public class DepartmentRoleRequest
-    {
-        public string RoleKey { get; set; } = string.Empty;
-        public string DepartmentCode { get; set; } = string.Empty;
-    }
+    public record SystemRoleRequest(string RoleKey);
+    public record DepartmentRoleRequest(string RoleKey, string DepartmentCode);
 }

@@ -1,24 +1,28 @@
 using System.Security.Claims;
-using TemplateProject.Providers;
-using TemplateProject.Providers.AuthProvider;
-using TemplateProject.Providers.EmployeeProvider;
+using TWMSServer.Providers;
+using TWMSServer.Providers.AuthProvider;
+using TWMSServer.Providers.EmployeeProvider;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TWMSServer.Model;
+using TWMSServer.Model.Enum;
 
-namespace TemplateProject.Controllers
+namespace TWMSServer.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController(
+        ILogger<AuthController> logger,
         IAuthProvider authProvider,
         IEmployeeProvider employeeProvider,
-        JwtProvider jwtProvider,
-        ILogger<AuthController> logger) : ControllerBase
+        EmployeeRolesProvider employeeRolesProvider,
+        JwtProvider jwtProvider) : ControllerBase
     {
+        private readonly ILogger<AuthController> _logger = logger;
         private readonly IAuthProvider _authProvider = authProvider;
         private readonly IEmployeeProvider _employeeProvider = employeeProvider;
+        private readonly EmployeeRolesProvider _employeeRolesProvider = employeeRolesProvider;
         private readonly JwtProvider _jwtProvider = jwtProvider;
-        private readonly ILogger<AuthController> _logger = logger;
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
@@ -41,19 +45,20 @@ namespace TemplateProject.Controllers
                 return Unauthorized("User is not a valid employee");
             }
 
-            var token = await _jwtProvider.GenerateToken(employee);
+            EmployeeWithRoles? employeeWithRoles = await _employeeRolesProvider.GetEmployeeWithRoles(employee.EmployeeNumber);
+            if (employeeWithRoles == null)
+            {
+                _logger.LogWarning("Employee not found in employee database with employee number {EmployeeNumber}", employee.EmployeeNumber);
+                return Unauthorized("User does not have access to this system");
+            }
+
+            var token = _jwtProvider.GenerateToken(employee, employeeWithRoles.SystemRoles, employeeWithRoles.DepartmentRoleMapping);
 
             return Ok(new
             {
                 message = "Login successful",
                 token,
-                employee = new
-                {
-                    username = employee.Username,
-                    employeeNumber = employee.EmployeeNumber,
-                    fullName = employee.FullName,
-                    department = employee.Department
-                }
+                employee = employeeWithRoles
             });
         }
 
@@ -83,8 +88,30 @@ namespace TemplateProject.Controllers
                 return Unauthorized("User is not a valid employee");
             }
 
-            var token = _jwtProvider.GenerateToken(employee);
-            return Ok(new { message = "Token refreshed successfully", token });
+            var systemRoles = new List<SystemRole>();
+            var departmentRoles = new List<DepartmentRoleMappingEntry>();
+            
+            foreach (var claim in User.Claims.Where(c => c.Type == ClaimTypes.Role))
+            {
+                if (claim.Value.StartsWith("system:"))
+                {
+                    var roleKey = claim.Value.Substring("system:".Length);
+                    systemRoles.Add(SystemRole.FromKey(roleKey));
+                }
+                else if (claim.Value.StartsWith("department:"))
+                {
+                    var parts = claim.Value.Substring("department:".Length).Split(':');
+                    if (parts.Length == 2)
+                    {
+                        var departmentCode = parts[0];
+                        var roleKey = parts[1];
+                        departmentRoles.Add(new DepartmentRoleMappingEntry(departmentCode, DepartmentRole.FromKey(roleKey)));
+                    }
+                }
+            }
+
+            var token = _jwtProvider.GenerateToken(employee, systemRoles, departmentRoles);
+            return Ok(new { message = "Token refreshed successfully", token  });
         }
     }
 

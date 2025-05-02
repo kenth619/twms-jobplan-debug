@@ -1,9 +1,9 @@
-using TemplateProject.Model;
-using TemplateProject.Providers.EmployeeProvider;
+using TWMSServer.Model;
+using TWMSServer.Providers.EmployeeProvider;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TemplateProject.Controllers
+namespace TWMSServer.Controllers
 {
     [Authorize]
     [ApiController]
@@ -14,11 +14,26 @@ namespace TemplateProject.Controllers
         private readonly IEmployeeProvider _employeeProvider = employeeProvider;
 
         [HttpGet]
-        public ActionResult<List<Employee>> GetActiveEmployees()
+        public async Task<ActionResult<List<Employee>>> GetEmployees()
         {
             try
             {
-                var employees = _employeeProvider.AllActiveEmployees();
+                var employees = await _employeeProvider.AllEmployees();
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("active")]
+        public async Task<ActionResult<List<Employee>>> GetActiveEmployees()
+        {
+            try
+            {
+                var employees = await _employeeProvider.AllActiveEmployees();
+                _logger.LogInformation("Found {Zz} employees", employees.Count);
                 return Ok(employees);
             }
             catch (Exception ex)
@@ -28,11 +43,11 @@ namespace TemplateProject.Controllers
         }
 
         [HttpGet("{employeeNumber}")]
-        public ActionResult<Employee> GetEmployeeByNumber(string employeeNumber)
+        public async Task<ActionResult<Employee>> GetEmployeeByNumber(string employeeNumber)
         {
             try
             {
-                var employee = _employeeProvider.FindEmployeeByEmployeeNumber(employeeNumber);
+                var employee = await _employeeProvider.FindEmployeeByEmployeeNumber(employeeNumber);
                 
                 if (employee == null)
                 {
@@ -40,6 +55,25 @@ namespace TemplateProject.Controllers
                 }
                 
                 return Ok(employee);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("loggedinuser")]
+        public async Task<ActionResult<string>> GetLoggedInUser()
+        {
+            try
+            {
+                var userName = User.Identity?.Name;
+                if (string.IsNullOrEmpty(userName))
+                {
+                    return BadRequest("User is not logged in");
+                }
+
+                return Ok(userName);
             }
             catch (Exception ex)
             {

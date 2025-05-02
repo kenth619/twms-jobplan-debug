@@ -1,22 +1,21 @@
 using MailKit.Net.Smtp;
 using MimeKit;
-using TemplateProject.Model;
-using TemplateProject.Providers.Secrets;
+using TWMSServer.Model;
+using TWMSServer.Providers.Secrets;
 using HandlebarsDotNet;
 using Quartz;
-using TemplateProject.Jobs;
-using System.Text.Json;
+using TWMSServer.Jobs;
 using HandlebarsDotNet.Extension.Json;
 using System.Text.Json.Nodes;
 using Microsoft.EntityFrameworkCore;
 
-namespace TemplateProject.Providers
+namespace TWMSServer.Providers
 {
     public class EmailProvider
     {
         private readonly ILogger<EmailProvider> _logger;
         private readonly IHandlebars _handlebars;
-        private readonly TemplateProjectContext _context;
+        private readonly TWMSServerContext _context;
         private readonly ISchedulerFactory _schedulerFactory;
 
         private readonly string smtpHost;
@@ -29,7 +28,7 @@ namespace TemplateProject.Providers
         private readonly List<string>? AllowedEmails;
         private bool IsConfigured => !(string.IsNullOrWhiteSpace(smtpHost) || string.IsNullOrWhiteSpace(smtpUsername) || string.IsNullOrWhiteSpace(smtpPassword) || string.IsNullOrWhiteSpace(fromEmail)) && (smtpPort == 25 || smtpPort == 465 || smtpPort == 587);
 
-        public EmailProvider(ILogger<EmailProvider> logger, IConfiguration configuration, ISecretsProvider secretsProvider, ISchedulerFactory schedulerFactory, IDbContextFactory<TemplateProjectContext> factory)
+        public EmailProvider(ILogger<EmailProvider> logger, IConfiguration configuration, ISecretsProvider secretsProvider, ISchedulerFactory schedulerFactory, IDbContextFactory<TWMSServerContext> factory)
         {
             _logger = logger;
             _schedulerFactory = schedulerFactory;
@@ -82,7 +81,9 @@ namespace TemplateProject.Providers
                 return false;
             }
 
-            EmailData? emailData = await _context.Emails.FirstOrDefaultAsync(e => e.EmailDataId == emailDataId);
+            EmailData? emailData = await _context.Emails
+                .Include(e => e.Attachments)
+                .FirstOrDefaultAsync(e => e.EmailDataId == emailDataId);
 
             if (emailData == null)
             {
@@ -115,6 +116,25 @@ namespace TemplateProject.Providers
                 {
                     HtmlBody = bodyHtml
                 };
+
+                // Add attachments if any
+                if (emailData.Attachments != null && emailData.Attachments.Any())
+                {
+                    foreach (var attachment in emailData.Attachments)
+                    {
+                        if (File.Exists(attachment.FilePath))
+                        {
+                            var contentType = string.IsNullOrEmpty(attachment.ContentType)
+                                ? null
+                                : new ContentType("application", "octet-stream");
+                                
+                            bodyBuilder.Attachments.Add(
+                                attachment.OriginalFileName,
+                                File.ReadAllBytes(attachment.FilePath),
+                                contentType);
+                        }
+                    }
+                }
 
                 message.Body = bodyBuilder.ToMessageBody();
 
@@ -173,6 +193,25 @@ namespace TemplateProject.Providers
                     {
                         HtmlBody = bodyHtml
                     };
+
+                    // Add attachments if any
+                    if (emailData.Attachments != null && emailData.Attachments.Any())
+                    {
+                        foreach (var attachment in emailData.Attachments)
+                        {
+                            if (File.Exists(attachment.FilePath))
+                            {
+                                var contentType = string.IsNullOrEmpty(attachment.ContentType)
+                                    ? null
+                                    : new ContentType("application", "octet-stream");
+                                    
+                                bodyBuilder.Attachments.Add(
+                                    attachment.OriginalFileName,
+                                    File.ReadAllBytes(attachment.FilePath),
+                                    contentType);
+                            }
+                        }
+                    }
 
                     message.Body = bodyBuilder.ToMessageBody();
                     await client.SendAsync(message);

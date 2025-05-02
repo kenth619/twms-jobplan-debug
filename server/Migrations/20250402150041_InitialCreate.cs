@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace TemplateProject.Migrations
+namespace TWMSServer.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,6 +46,24 @@ namespace TemplateProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "JobSchedules",
+                columns: table => new
+                {
+                    JobScheduleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    JobName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CronExpression = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LastRun = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobSchedules", x => x.JobScheduleId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SystemRoleAssignments",
                 columns: table => new
                 {
@@ -58,6 +76,33 @@ namespace TemplateProject.Migrations
                 {
                     table.PrimaryKey("PK_SystemRoleAssignments", x => x.SystemRoleAssignmentId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "EmailAttachment",
+                columns: table => new
+                {
+                    EmailAttachmentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OriginalFileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailDataId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailAttachment", x => x.EmailAttachmentId);
+                    table.ForeignKey(
+                        name: "FK_EmailAttachment_Emails_EmailDataId",
+                        column: x => x.EmailDataId,
+                        principalTable: "Emails",
+                        principalColumn: "EmailDataId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailAttachment_EmailDataId",
+                table: "EmailAttachment",
+                column: "EmailDataId");
         }
 
         /// <inheritdoc />
@@ -67,10 +112,16 @@ namespace TemplateProject.Migrations
                 name: "DepartmentRoleAssignments");
 
             migrationBuilder.DropTable(
-                name: "Emails");
+                name: "EmailAttachment");
+
+            migrationBuilder.DropTable(
+                name: "JobSchedules");
 
             migrationBuilder.DropTable(
                 name: "SystemRoleAssignments");
+
+            migrationBuilder.DropTable(
+                name: "Emails");
         }
     }
 }

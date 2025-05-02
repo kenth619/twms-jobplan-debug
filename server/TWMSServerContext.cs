@@ -1,15 +1,19 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using TemplateProject.Model;
-using TemplateProject.Model.Enum;
+using TWMSServer.Model;
+using TWMSServer.Model.Enum;
 
-namespace TemplateProject
+namespace TWMSServer
 {
-    public class TemplateProjectContext(DbContextOptions<TemplateProjectContext> options) : DbContext(options)
+    public class TWMSServerContext(DbContextOptions<TWMSServerContext> options) : DbContext(options)
     {
         public DbSet<EmailData> Emails { get; set; }
         public DbSet<SystemRoleAssignment> SystemRoleAssignments { get; set; }
         public DbSet<DepartmentRoleAssignment> DepartmentRoleAssignments { get; set; }
+        public DbSet<JobSchedule> JobSchedules { get; set; }
+        public DbSet<WorkOrder> tblWorkOrders { get; set; }
+        public DbSet<Asset> tblAssets { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

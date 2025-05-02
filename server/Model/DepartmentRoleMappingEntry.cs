@@ -1,6 +1,6 @@
-using TemplateProject.Model.Enum;
+using TWMSServer.Model.Enum;
 
-namespace TemplateProject.Model
+namespace TWMSServer.Model
 {
     public record DepartmentRoleMappingEntry(string DepartmentCode, DepartmentRole Role);
 }

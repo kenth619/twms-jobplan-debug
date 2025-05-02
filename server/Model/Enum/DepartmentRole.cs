@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace TemplateProject.Model.Enum
+namespace TWMSServer.Model.Enum
 {
     public class DepartmentRole(string key, string name)
     {

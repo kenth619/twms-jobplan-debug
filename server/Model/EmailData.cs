@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using MimeKit;
+using System.Collections.Generic;
 
-namespace TemplateProject.Model
+namespace TWMSServer.Model
 {
     public class EmailData
     {
@@ -47,5 +48,7 @@ namespace TemplateProject.Model
         [NotMapped] public IEnumerable<InternetAddress> ParsedToRecipients => ToRecipients.Select(e => MailboxAddress.Parse(e));
         [NotMapped] public IEnumerable<InternetAddress> ParsedCCRecipients => CCRecipients.Select(e => MailboxAddress.Parse(e));
         [NotMapped] public IEnumerable<InternetAddress> ParsedBCCRecipients => BCCRecipients.Select(e => MailboxAddress.Parse(e));
+
+        public ICollection<EmailAttachment> Attachments { get; set; } = new List<EmailAttachment>();
     }
 }

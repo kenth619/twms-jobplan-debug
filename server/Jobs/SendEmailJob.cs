@@ -1,7 +1,7 @@
 using Quartz;
-using TemplateProject.Providers;
+using TWMSServer.Providers;
 
-namespace TemplateProject.Jobs
+namespace TWMSServer.Jobs
 {
     public class SendEmailJob(ILogger<SendEmailJob> logger, EmailProvider emailProvider) : IJob
     {

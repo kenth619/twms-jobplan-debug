@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using TemplateProject.Model.Enum;
+using TWMSServer.Model.Enum;
 
-namespace TemplateProject.Model
+namespace TWMSServer.Model
 {
     public class Employee
     {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace TemplateProject.Model.Enum
+namespace TWMSServer.Model.Enum
 {
     public class SystemRole(string key, string name)
     {
@@ -9,7 +9,7 @@ namespace TemplateProject.Model.Enum
         }
 
         public static readonly SystemRole None = new("none", "None");
-        public static readonly SystemRole Administrator = new("administrator", "Administrator");
+        public static readonly SystemRole Administrator = new("system-administrator", "System Administrator");
         public static readonly SystemRole Superuser = new("superuser", "Superuser");
 
         public static SystemRole FromKey(string _key)
@@ -17,7 +17,7 @@ namespace TemplateProject.Model.Enum
             return _key switch
             {
                 "none" => None,
-                "administrator" => Administrator,
+                "system-administrator" => Administrator,
                 "superuser" => Superuser,
                 _ => throw new Exception($"No GlobalRole with key {_key}"),
             };

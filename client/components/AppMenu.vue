@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { MenuItem } from 'primevue/menuitem'
-import type { NavigateToOptions } from '#app/composables/router'
+import type { NavigateToOptions } from '#app/composables/router';
+import type { MenuItem } from 'primevue/menuitem';
 
 defineProps<{
     collapsed?: boolean
@@ -8,7 +8,7 @@ defineProps<{
 
 const emit = defineEmits(['dismiss'])
 
-const { hasAny } = useEmployeeData()
+const { hasAny } = useRoles()
 const authStore = useAuthStore()
 const { isAuthenticated } = storeToRefs(authStore)
 
@@ -22,7 +22,7 @@ const logout = async () => {
         console.error('Logout error:', error)
     }
     finally {
-        authStore.clearToken()
+        authStore.logout()
         navigateTo('/auth/login')
     }
 }
@@ -34,15 +34,22 @@ function navigateToAndDismiss(arg1: string, arg2?: NavigateToOptions) {
 const items = computed<MenuItem[]>(() => {
     const result = [] as MenuItem[]
 
+    // home page
+    result.push({
+        label: 'Home',
+        icon: 'material-symbols:home',
+        command: () => navigateToAndDismiss(''),
+    })
+
     // Admin sections
-    if (hasAny(['administrator', 'superuser'])) {
+    if (hasAny(['system-administrator', 'superuser'])) {
         if (result.length > 0) {
             result.push({ separator: true })
         }
         result.push({
             label: 'Manage Employees',
             icon: 'material-symbols:manage-accounts',
-            command: () => navigateToAndDismiss('/admin/manage-employees'),
+            command: () => navigateToAndDismiss('/sysadmin/manage-employees'),
         })
     }
 
@@ -65,12 +72,12 @@ const items = computed<MenuItem[]>(() => {
     <Menu
         v-if="isAuthenticated"
         :model="items"
-        class="h-full !rounded-none !border-none"
+        class="h-full !rounded-none !border-none !bg-[#384940]"
     >
         <template #item="{ item, props }">
             <a
                 v-ripple
-                class="flex flex-row items-center text-nowrap"
+                class="flex flex-row items-center text-nowrap !text-white"
                 v-bind="props.action"
             >
                 <Icon
@@ -80,7 +87,7 @@ const items = computed<MenuItem[]>(() => {
                 />
                 <div
                     v-if="!collapsed"
-                    class="ml-2 transition-opacity duration-300 text-nowrap"
+                    class="ml-2 transition-opacity duration-300 text-nowrap "
                 >
                     {{ item.label }}
                 </div>

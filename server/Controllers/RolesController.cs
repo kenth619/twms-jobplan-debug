@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TemplateProject.Model.Enum;
+using TWMSServer.Model.Enum;
 
-namespace TemplateProject.Controllers
+namespace TWMSServer.Controllers
 {
     [Authorize]
     [ApiController]

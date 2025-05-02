@@ -1,6 +1,6 @@
-using TemplateProject.Model.Enum;
+using TWMSServer.Model.Enum;
 
-namespace TemplateProject.Model
+namespace TWMSServer.Model
 {
     public class EmployeeWithRoles(Employee employee, List<SystemRole> systemRoles, List<DepartmentRoleMappingEntry> departmentRoleMapping)
     {

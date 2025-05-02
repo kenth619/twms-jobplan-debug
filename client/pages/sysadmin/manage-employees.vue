@@ -1,6 +1,9 @@
 <script lang="ts" setup>
-const { has } = useEmployeeData()
-const isAuthorized = computed(() => has('administrator') || has('superuser'))
+const { has } = useRoles()
+const isAuthorized = computed(() => has('system-administrator') || has('superuser'))
+
+const toast = useToast()
+const queryClient = useQueryClient()
 
 const selectedEmployee = ref<EmployeeDataHCM | null>(null)
 const employeeSearchTerm = ref('')
@@ -9,7 +12,6 @@ const rowsPerPage = ref(10)
 const confirmDialog = ref(false)
 const confirmAction = ref<(() => void) | null>(null)
 const confirmMessage = ref('')
-const toast = useToast()
 const selectedDepartment = ref<Department | null>(null)
 const selectedDepartmentRole = ref<DepartmentRole | null>(null)
 
@@ -211,8 +213,6 @@ const confirmRemoveDepartmentRole = (department: Department, role: DepartmentRol
     confirmDialog.value = true
 }
 
-const queryClient = useQueryClient()
-
 const executeConfirmedAction = () => {
     if (confirmAction.value) {
         confirmAction.value()
@@ -372,7 +372,6 @@ const cancelConfirmedAction = () => {
                             No departments available.
                         </div>
                         <div v-else>
-                            <!-- Current Department Roles Table -->
                             <div class="mb-4">
                                 <h4 class="text-md font-medium mb-2">
                                     Current Department Roles
@@ -419,7 +418,6 @@ const cancelConfirmedAction = () => {
                                 </div>
                             </div>
 
-                            <!-- Assign New Department Role -->
                             <div>
                                 <h4 class="text-md font-medium mb-2">
                                     Assign New Department Role
@@ -490,8 +488,5 @@ const cancelConfirmedAction = () => {
                 />
             </template>
         </Dialog>
-
-        <!-- Toast -->
-        <Toast />
     </div>
 </template>

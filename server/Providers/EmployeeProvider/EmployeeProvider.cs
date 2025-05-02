@@ -1,8 +1,8 @@
-﻿﻿using TemplateProject.Model;
+﻿﻿using TWMSServer.Model;
 using System.Data.SqlClient;
-using TemplateProject.Providers.Secrets;
+using TWMSServer.Providers.Secrets;
 
-namespace TemplateProject.Providers.EmployeeProvider
+namespace TWMSServer.Providers.EmployeeProvider
 {
     public class EmployeeProvider(ISecretsProvider secretsProvider) : IEmployeeProvider
     {
@@ -10,7 +10,7 @@ namespace TemplateProject.Providers.EmployeeProvider
 
         private static readonly string QUERY_COMMON = @"
                             SELECT vwEmployeeInformationExtra.[EmployeeNo],
-                                            IIF([Active]=1, [UserName], '') as Username,
+                                            IIF([Active]=1, [UserName], '') AS UserName,
                                             [FirstName],
                                             [LastName],
                                             [DeptDesc],
@@ -58,7 +58,7 @@ namespace TemplateProject.Providers.EmployeeProvider
             var jobName = reader["JobName"]?.ToString() ?? "";
             var grade = reader["Grade"]?.ToString() ?? "";
 
-            if (string.IsNullOrWhiteSpace(employeeno) || string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(firstname) || string.IsNullOrWhiteSpace(lastname))
+            if (string.IsNullOrWhiteSpace(employeeno) || string.IsNullOrWhiteSpace(firstname) || string.IsNullOrWhiteSpace(lastname))
             {
                 return null;
             }
@@ -66,7 +66,7 @@ namespace TemplateProject.Providers.EmployeeProvider
             return new Employee
             {
                 EmployeeNumber = employeeno,
-                Username = username,
+                Username = username ?? "NO USERNAME",
                 FirstName = firstname,
                 LastName = lastname,
                 Department = deptdesc ?? "",

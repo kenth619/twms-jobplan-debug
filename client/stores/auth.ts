@@ -1,44 +1,33 @@
-import { isFuture } from 'date-fns'
+import { differenceInSeconds, isFuture, isPast } from 'date-fns'
 import { jwtDecode } from 'jwt-decode'
 
 interface JwtPayload {
     exp: number
-    unique_name: string
-    username: string
-    email?: string | undefined | null
-    employeeNumber: string
-    [key: string]: unknown
 }
 
 export const useAuthStore = defineStore('auth', () => {
     const token = ref<string | null>()
-    const username = ref<string | null>()
-    const employeeName = ref<string | null>()
-    const employeeNumber = ref<string | null>()
-    const employeeEmail = ref<string | null>()
+    const employeeData = ref<EmployeeWithRoles | null>()
     const expiresAt = ref<Date | null>()
 
     const queryClient = useQueryClient()
 
     const isAuthenticated = computed(() => !!token.value && !!expiresAt.value && isFuture(expiresAt.value))
+    const isSessionExpired = computed(() => !!token.value && !!expiresAt.value && isPast(expiresAt.value))
+    const isSessionExpiringSoon = () => {
+        return !!token.value && !!expiresAt.value && isFuture(expiresAt.value) && (differenceInSeconds(expiresAt.value, new Date()) < 60)
+    }
 
-    function setToken(newToken: string) {
-        clearToken()
+    async function setToken(newToken: string) {
+        token.value = null
+        expiresAt.value = null
 
         try {
             const decodedToken = jwtDecode<JwtPayload>(newToken)
-            const newUsername = decodedToken.username
-            const newEmployeeName = decodedToken.unique_name
-            const newEmployeeNumber = decodedToken.employeeNumber
-            const newEmail = decodedToken.email ?? null
             const newExpiresAt = decodedToken?.exp ? new Date(decodedToken.exp * 1000) : null
 
-            if (newUsername && newEmployeeName && newEmployeeNumber && newExpiresAt) {
+            if (newExpiresAt) {
                 token.value = newToken
-                username.value = newUsername
-                employeeName.value = newEmployeeName
-                employeeNumber.value = newEmployeeNumber
-                employeeEmail.value = newEmail
                 expiresAt.value = newExpiresAt
             }
         }
@@ -47,12 +36,14 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
-    function clearToken() {
+    async function login(newToken: string, newEmployeeData: EmployeeWithRoles) {
+        employeeData.value = newEmployeeData
+        await setToken(newToken)
+    }
+
+    function logout() {
+        employeeData.value = null
         token.value = null
-        username.value = null
-        employeeName.value = null
-        employeeNumber.value = null
-        employeeEmail.value = null
         expiresAt.value = null
         queryClient.invalidateQueries({ refetchType: 'none' })
         localStorage.clear()
@@ -70,7 +61,7 @@ export const useAuthStore = defineStore('auth', () => {
             })
 
             if (response.token) {
-                setToken(response.token)
+                await setToken(response.token)
                 return true
             }
             return false
@@ -82,16 +73,16 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     return {
-        username,
-        employeeNumber,
-        employeeName,
-        employeeEmail,
+        employeeData,
         expiresAt,
         token,
         isAuthenticated,
+        isSessionExpired,
+        isSessionExpiringSoon,
         setToken,
         refreshToken,
-        clearToken,
+        login,
+        logout,
     }
 }, {
     persist: {

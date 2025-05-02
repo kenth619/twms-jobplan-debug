@@ -1,5 +1,5 @@
-import Lara from '@primeuix/themes/lara'
 import tailwindcss from '@tailwindcss/vite'
+import { MyPreset } from './preset'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -9,9 +9,12 @@ export default defineNuxtConfig({
         '@hebilicious/vue-query-nuxt',
         '@pinia/nuxt',
         '@nuxt/icon',
+        '@vee-validate/nuxt',
         'pinia-plugin-persistedstate/nuxt',
         '@nuxtjs/color-mode',
         '@vueuse/nuxt',
+        '@outloud/nuxt-modals',
+        '@formkit/auto-animate/nuxt',
     ],
     ssr: false,
     devtools: { enabled: true },
@@ -20,9 +23,9 @@ export default defineNuxtConfig({
         'primeicons/primeicons.css',
     ],
     colorMode: {
-        preference: 'system',
         fallback: 'light',
         classSuffix: '',
+        storage: 'localStorage',
     },
     runtimeConfig: {
         public: {
@@ -47,11 +50,15 @@ export default defineNuxtConfig({
     primevue: {
         options: {
             theme: {
-                preset: Lara,
+                preset: MyPreset,
                 options: {
                     darkModeSelector: '.dark',
                 },
             },
+        },
+        components: {
+            include: '*',
+            exclude: ['Chart', 'Editor', 'Form', 'FormField', 'DatePicker'],
         },
     },
 })

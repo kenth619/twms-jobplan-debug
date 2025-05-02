@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TemplateProject;
+using TWMSServer;
 
 #nullable disable
 
-namespace TemplateProject.Migrations
+namespace TWMSServer.Migrations
 {
-    [DbContext(typeof(TemplateProjectContext))]
+    [DbContext(typeof(TWMSServerContext))]
     partial class TemplateProjectContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -21,6 +21,47 @@ namespace TemplateProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("TemplateProject.Model.Asset", b =>
+                {
+                    b.Property<int>("AssetId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssetId"));
+
+                    b.Property<string>("AssetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AssetType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Manufacturer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModelNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WorkOrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AssetId");
+
+                    b.HasIndex("WorkOrderId");
+
+                    b.ToTable("tblAssets");
+                });
 
             modelBuilder.Entity("TemplateProject.Model.DepartmentRoleAssignment", b =>
                 {
@@ -45,6 +86,35 @@ namespace TemplateProject.Migrations
                     b.HasKey("DepartmentRoleAssignmentId");
 
                     b.ToTable("DepartmentRoleAssignments");
+                });
+
+            modelBuilder.Entity("TemplateProject.Model.EmailAttachment", b =>
+                {
+                    b.Property<int>("EmailAttachmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmailAttachmentId"));
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmailDataId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OriginalFileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EmailAttachmentId");
+
+                    b.HasIndex("EmailDataId");
+
+                    b.ToTable("EmailAttachment");
                 });
 
             modelBuilder.Entity("TemplateProject.Model.EmailData", b =>
@@ -87,6 +157,39 @@ namespace TemplateProject.Migrations
                     b.ToTable("Emails");
                 });
 
+            modelBuilder.Entity("TemplateProject.Model.JobSchedule", b =>
+                {
+                    b.Property<int>("JobScheduleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JobScheduleId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CronExpression")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JobName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastRun")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("JobScheduleId");
+
+                    b.ToTable("JobSchedules");
+                });
+
             modelBuilder.Entity("TemplateProject.Model.SystemRoleAssignment", b =>
                 {
                     b.Property<int>("SystemRoleAssignmentId")
@@ -106,6 +209,56 @@ namespace TemplateProject.Migrations
                     b.HasKey("SystemRoleAssignmentId");
 
                     b.ToTable("SystemRoleAssignments");
+                });
+
+            modelBuilder.Entity("TemplateProject.Model.WorkOrder", b =>
+                {
+                    b.Property<int>("WorkOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkOrderId"));
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WorkOrderId");
+
+                    b.ToTable("tblWorkOrders");
+                });
+
+            modelBuilder.Entity("TemplateProject.Model.Asset", b =>
+                {
+                    b.HasOne("TemplateProject.Model.WorkOrder", "WorkOrder")
+                        .WithMany("Assets")
+                        .HasForeignKey("WorkOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkOrder");
+                });
+
+            modelBuilder.Entity("TemplateProject.Model.EmailAttachment", b =>
+                {
+                    b.HasOne("TemplateProject.Model.EmailData", null)
+                        .WithMany("Attachments")
+                        .HasForeignKey("EmailDataId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TemplateProject.Model.EmailData", b =>
+                {
+                    b.Navigation("Attachments");
+                });
+
+            modelBuilder.Entity("TemplateProject.Model.WorkOrder", b =>
+                {
+                    b.Navigation("Assets");
                 });
 #pragma warning restore 612, 618
         }

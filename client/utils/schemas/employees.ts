@@ -1,6 +1,14 @@
 import * as yup from 'yup'
 
-export const validSystemRoles = [{ key: 'administrator', name: 'Admin' }, { key: 'superuser', name: 'Superuser' }] as const
+export const validSystemRoles = [
+    { key: 'none', name: 'None' },
+    { key: 'viewer', name: 'Viewer' },
+    { key: 'editor', name: 'Editor' },
+    { key: 'manager', name: 'HR Manager' },
+    { key: 'administrator', name: 'Administrator' },
+    { key: 'system-administrator', name: 'System Administrator' },
+    { key: 'superuser', name: 'Superuser' },
+] as const
 export const validDepartmentRoles = [] as const
 
 export const departmentSchema = yup.object({
@@ -9,12 +17,12 @@ export const departmentSchema = yup.object({
 })
 
 export const systemRoleSchema = yup.object({
-    key: yup.string().oneOf(['administrator', 'superuser']).required(),
+    key: yup.string().oneOf(['none', 'viewer', 'editor', 'manager', 'administrator', 'system-administrator', 'superuser']).required(),
     name: yup.string().required(),
 })
 
 export const departmentRoleSchema = yup.object({
-    key: yup.string().oneOf(['manager', 'supervisor', 'approver', 'reviewer']).required(),
+    key: yup.string().oneOf(['none']).required(),
     name: yup.string().required(),
 })
 
@@ -43,9 +51,16 @@ export const employeeWithRolesSchema = employeeDataHCMSchema.concat(yup.object({
     departmentRoleMapping: yup.array().of(departmentRoleMappingEntrySchema).required().default([]),
 }))
 
+export const loginResponseSchema = yup.object({
+    message: yup.string().required(),
+    token: yup.string().required(),
+    employee: employeeWithRolesSchema.required(),
+})
+
 export type EmployeeWithRoles = yup.InferType<typeof employeeWithRolesSchema>
 export type EmployeeDataHCM = yup.InferType<typeof employeeDataHCMSchema>
 export type SystemRole = yup.InferType<typeof systemRoleSchema>
 export type Department = yup.InferType<typeof departmentSchema>
 export type DepartmentRole = yup.InferType<typeof departmentRoleSchema>
 export type DepartmentRoleMappingEntry = yup.InferType<typeof departmentRoleMappingEntrySchema>
+export type LoginResponse = yup.InferType<typeof loginResponseSchema>

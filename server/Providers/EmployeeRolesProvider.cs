@@ -1,14 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-using TemplateProject.Model;
-using TemplateProject.Model.Enum;
-using TemplateProject.Providers.EmployeeProvider;
+using TWMSServer.Model;
+using TWMSServer.Model.Enum;
+using TWMSServer.Providers.EmployeeProvider;
 
-namespace TemplateProject.Providers
+namespace TWMSServer.Providers
 {
-    public class EmployeeRolesProvider(ILogger<EmployeeRolesProvider> logger, IDbContextFactory<TemplateProjectContext> contextFactory, IEmployeeProvider employeeProvider)
+        public class EmployeeRolesProvider(ILogger<EmployeeRolesProvider> logger, IDbContextFactory<TWMSServerContext> contextFactory, IEmployeeProvider employeeProvider)
     {
         private readonly ILogger<EmployeeRolesProvider> _logger = logger;
-        private readonly TemplateProjectContext _context = contextFactory.CreateDbContext();
+        private readonly TWMSServerContext _context = contextFactory.CreateDbContext();
         private readonly IEmployeeProvider _employeeProvider = employeeProvider;
 
         public async Task<List<EmployeeWithRoles>> GetAllEmployeesWithRoles()
@@ -191,20 +191,6 @@ namespace TemplateProject.Providers
             }
         }
 
-        public async Task<List<SystemRoleAssignment>> GetSystemRoleAssignments(string employeeNumber)
-        {
-            return await _context.SystemRoleAssignments
-                .Where(r => r.EmployeeNumber == employeeNumber)
-                .ToListAsync();
-        }
-
-        public async Task<List<DepartmentRoleAssignment>> GetDepartmentRoleAssignments(string employeeNumber)
-        {
-            return await _context.DepartmentRoleAssignments
-                .Where(r => r.EmployeeNumber == employeeNumber)
-                .ToListAsync();
-        }
-
         public async Task<bool> HasSystemRole(string employeeNumber, SystemRole role)
         {
             return await _context.SystemRoleAssignments.AnyAsync(r => r.EmployeeNumber == employeeNumber && r.Role == role);
@@ -218,22 +204,46 @@ namespace TemplateProject.Providers
                               r.Role == role);
         }
 
-        private async Task<List<SystemRole>> GetSystemRoles(string employeeNumber)
+        public async Task<List<SystemRole>> GetSystemRoles(string employeeNumber)
         {
-            var roleAssignments = await _context.SystemRoleAssignments
-                .Where(r => r.EmployeeNumber == employeeNumber)
-                .ToListAsync();
-
-            return roleAssignments.Select(r => r.Role).ToList();
+            var roleAssignments = await _context.SystemRoleAssignments.Where(r => r.EmployeeNumber == employeeNumber).ToListAsync();
+            return [.. roleAssignments.Select(r => r.Role)];
         }
 
-        private async Task<List<DepartmentRoleMappingEntry>> GetDepartmentRoleMappings(string employeeNumber)
+        public async Task<List<DepartmentRoleMappingEntry>> GetDepartmentRoleMappings(string employeeNumber)
         {
-            var roleAssignments = await _context.DepartmentRoleAssignments
-                .Where(r => r.EmployeeNumber == employeeNumber)
-                .ToListAsync();
-
+            var roleAssignments = await _context.DepartmentRoleAssignments.Where(r => r.EmployeeNumber == employeeNumber).ToListAsync();
             return [.. roleAssignments.Select(r => new DepartmentRoleMappingEntry(r.DepartmentCode, r.Role))];
+        }
+
+        public async Task<List<Employee>> GetEmployeesWithSystemRole(SystemRole role)
+        {
+            try
+            {
+                // Get all employee numbers with the specified role
+                var employeeNumbers = await _context.SystemRoleAssignments
+                    .Where(r => r.Role == role)
+                    .Select(r => r.EmployeeNumber)
+                    .ToListAsync();
+
+                // Get the employee details for each employee number
+                var employees = new List<Employee>();
+                foreach (var employeeNumber in employeeNumbers)
+                {
+                    var employee = await _employeeProvider.FindEmployeeByEmployeeNumber(employeeNumber);
+                    if (employee != null)
+                    {
+                        employees.Add(employee);
+                    }
+                }
+
+                return employees;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting employees with system role {RoleKey}", role.Key);
+                return [];
+            }
         }
     }
 }

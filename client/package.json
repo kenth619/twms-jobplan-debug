@@ -11,13 +11,17 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.2",
     "@hebilicious/vue-query-nuxt": "^0.3.0",
     "@nuxtjs/color-mode": "^3.5.2",
+    "@outloud/nuxt-modals": "^2.0.4",
     "@pinia/nuxt": "^0.10.1",
     "@primeuix/themes": "^1.0.0",
-    "@primevue/forms": "^4.3.1",
     "@tailwindcss/vite": "^4.0.11",
     "@tanstack/vue-query": "^5.67.1",
+    "@vee-validate/nuxt": "^4.15.0",
+    "@vee-validate/yup": "^4.15.0",
+    "@vuepic/vue-datepicker": "^11.0.2",
     "@vueuse/core": "^13.0.0",
     "@vueuse/nuxt": "^13.0.0",
     "date-fns": "^4.1.0",
@@ -29,6 +33,7 @@
     "primevue": "^4.3.1",
     "tailwindcss": "^4.0.11",
     "vue": "^3.5.13",
+    "vue-multiselect": "^3.2.0",
     "vue-router": "^4.5.0",
     "yup": "^1.6.1"
   },

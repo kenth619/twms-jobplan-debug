@@ -2,7 +2,7 @@
 import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 
 useHead({
-    title: 'TWMS',
+    title: 'T&TEC Work Management System',
 })
 
 const route = useRoute()
@@ -10,7 +10,9 @@ const route = useRoute()
 const { theme, setTheme } = useTheme()
 const themeOptions = ref(['Dark', 'Light', 'Auto'])
 const themeValue = ref<'Dark' | 'Light' | 'Auto'>(theme.value)
-watch(themeValue, async () => await setTheme(themeValue.value))
+async function updateTheme() {
+    await setTheme(themeValue.value)
+}
 
 const back = computed(() => route.meta.back as ((route: RouteLocationNormalizedLoadedGeneric) => string) | undefined)
 
@@ -26,11 +28,11 @@ watch(collapsed, () => {
 <template>
     <div class="flex flex-col xl:flex-row h-screen overflow-hidden">
         <div
-            class="hidden xl:block relative flex-shrink-0 border border-t-0 border-neutral-300 dark:border-neutral-600 bg-neutral-0 text-black dark:bg-neutral-800 dark:text-white overflow-clip transition-all duration-300 ease-in-out"
+            class="hidden xl:block relative flex-shrink-0 border border-t-0 border-[#384959] !text-white overflow-clip transition-all duration-300 ease-in-out shadow-2xl"
             :class="sidebarWidth"
         >
             <span
-                class="flex flex-row p-2 gap-5 items-center cursor-pointer"
+                class="flex flex-row p-2 gap-3 items-center cursor-pointer !bg-[#385940]"
                 @click="collapsed = !collapsed"
             >
                 <img
@@ -54,6 +56,7 @@ watch(collapsed, () => {
                     <SelectButton
                         v-model="themeValue"
                         :options="themeOptions"
+                        @change="updateTheme"
                     />
                 </div>
             </div>
@@ -109,7 +112,7 @@ watch(collapsed, () => {
                         {{ route.meta.title }}
                     </div>
                     <div v-else>
-                        TWMS
+                        T&TEC Work Management System
                     </div>
                 </div>
                 <div

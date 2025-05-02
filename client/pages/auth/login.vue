@@ -1,44 +1,38 @@
 <script setup lang="ts">
-import { Form, type FormSubmitEvent } from '@primevue/forms'
-import { yupResolver } from '@primevue/forms/resolvers/yup'
+import { useForm, Field } from 'vee-validate'
 import * as yup from 'yup'
+
+definePageMeta({
+    layout: 'auth',
+})
 
 interface LoginResponse {
     message: string
     token: string
-    employee: {
-        username: string
-        employeeNumber: string
-        fullName: string
-        department: string
-    }
+    employee: EmployeeWithRoles
 }
 
 const toast = useToast()
+const route = useRoute()
 const authStore = useAuthStore()
 
 const loading = ref(false)
+const loginError = ref('')
 
 const schema = yup.object({
     username: yup.string().required('Username is required'),
     password: yup.string().required('Password is required'),
 })
 
-const formRef = ref()
-const loginError = ref('')
+const { handleSubmit } = useForm({
+    validationSchema: schema,
+    initialValues: {
+        username: '',
+        password: '',
+    },
+})
 
-const resolver = yupResolver(schema)
-
-const initialValues = {
-    username: '',
-    password: '',
-}
-
-const route = useRoute()
-
-const onSubmit = async (event: FormSubmitEvent) => {
-    if (!event.valid) return
-
+const onSubmit = handleSubmit(async (values) => {
     loginError.value = ''
     loading.value = true
 
@@ -46,12 +40,14 @@ const onSubmit = async (event: FormSubmitEvent) => {
         const response = await $api<LoginResponse>('/api/auth/login', {
             method: 'POST',
             body: {
-                username: event.values.username,
-                password: event.values.password,
+                username: values.username,
+                password: values.password,
             },
         })
 
-        authStore.setToken(response.token)
+        const parsed = await loginResponseSchema.validate(response)
+
+        await authStore.login(parsed.token, parsed.employee)
 
         const redirectUrl = route.query.redirectUrl as string
         navigateTo(redirectUrl || '/')
@@ -68,7 +64,15 @@ const onSubmit = async (event: FormSubmitEvent) => {
     finally {
         loading.value = false
     }
-}
+})
+
+const showInactivityLogoutModal = ref(route.query.inactiveLogout === 'true')
+
+onMounted(async () => {
+    if (route.query.registrationSuccess || route.query.confirmedEmail || route.query.inactiveLogout) {
+        await navigateTo({ query: { ...route.query, registrationSuccess: undefined, confirmedEmail: undefined, inactiveLogout: undefined }, replace: true })
+    }
+})
 </script>
 
 <template>
@@ -83,13 +87,7 @@ const onSubmit = async (event: FormSubmitEvent) => {
                 </p>
             </div>
 
-            <Form
-                ref="formRef"
-                v-slot="$form"
-                :initial-values="initialValues"
-                :resolver="resolver"
-                @submit="onSubmit"
-            >
+            <form @submit="onSubmit">
                 <div class="space-y-2 mb-4">
                     <label
                         for="username"
@@ -97,20 +95,20 @@ const onSubmit = async (event: FormSubmitEvent) => {
                     >
                         Username
                     </label>
-                    <InputText
-                        id="username"
+                    <Field
+                        v-slot="{ field, errorMessage }"
                         name="username"
-                        fluid
-                        :class="{ 'p-invalid': $form.username?.invalid }"
-                        placeholder="Enter your username"
-                        autocomplete="username"
-                    />
-                    <small
-                        v-if="$form.username?.invalid"
-                        class="p-error"
                     >
-                        {{ $form.username.error.message }}
-                    </small>
+                        <InputText
+                            id="username"
+                            v-bind="field"
+                            fluid
+                            :invalid="!!errorMessage"
+                            placeholder="Enter your username"
+                            autocomplete="username"
+                        />
+                        <ErrorMessage :error-message="errorMessage" />
+                    </Field>
                 </div>
 
                 <div class="space-y-2 mb-4">
@@ -120,22 +118,22 @@ const onSubmit = async (event: FormSubmitEvent) => {
                     >
                         Password
                     </label>
-                    <Password
-                        id="password"
+                    <Field
+                        v-slot="{ field, errorMessage }"
                         name="password"
-                        :class="{ 'p-invalid': $form.password?.invalid }"
-                        fluid
-                        toggle-mask
-                        :feedback="false"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                    />
-                    <small
-                        v-if="$form.password?.invalid"
-                        class="p-error"
                     >
-                        {{ $form.password.error.message }}
-                    </small>
+                        <Password
+                            id="password"
+                            v-bind="field"
+                            :invalid="!!errorMessage"
+                            fluid
+                            toggle-mask
+                            :feedback="false"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                        />
+                        <ErrorMessage :error-message="errorMessage" />
+                    </Field>
                 </div>
 
                 <Message
@@ -152,7 +150,25 @@ const onSubmit = async (event: FormSubmitEvent) => {
                     class="w-full mt-4"
                     label="Sign In"
                 />
-            </Form>
+            </form>
         </div>
+
+        <Dialog
+            v-model:visible="showInactivityLogoutModal"
+            modal
+            header="Session Expired"
+            class="w-[90vw] xl:max-w-[30rem]"
+        >
+            <p>
+                You have been automatically logged out due to inactivity.
+            </p>
+            <template #footer>
+                <Button
+                    label="OK"
+                    severity="primary"
+                    @click="showInactivityLogoutModal = false"
+                />
+            </template>
+        </Dialog>
     </div>
 </template>

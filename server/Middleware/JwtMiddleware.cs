@@ -1,24 +1,20 @@
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
-using TemplateProject.Providers;
-using TemplateProject.Providers.EmployeeProvider;
+using TWMSServer.Providers;
+using TWMSServer.Providers.EmployeeProvider;
 using Microsoft.IdentityModel.Tokens;
+using TWMSServer.Model.Enum;
+using System.Security.Claims;
+using TWMSServer.Model;
 
-namespace TemplateProject.Middleware
+namespace TWMSServer.Middleware
 {
-    public class JwtMiddleware(
-        RequestDelegate next,
-        IConfiguration configuration,
-        IEmployeeProvider employeeProvider,
-        JwtProvider jwtProvider)
+    public class JwtMiddleware(ILogger<JwtMiddleware> logger, RequestDelegate next)
     {
+        private readonly ILogger<JwtMiddleware> _logger = logger;
         private readonly RequestDelegate _next = next;
-        private readonly IConfiguration _configuration = configuration;
-        private readonly IEmployeeProvider _employeeProvider = employeeProvider;
-        private readonly JwtProvider _jwtProvider = jwtProvider;
 
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, IConfiguration configuration, IEmployeeProvider employeeProvider, JwtProvider jwtProvider)
         {
             // Extract token from Authorization header
             string? token = null;
@@ -26,7 +22,7 @@ namespace TemplateProject.Middleware
             
             if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
             {
-                token = authHeader.Substring("Bearer ".Length).Trim();
+                token = authHeader["Bearer ".Length..].Trim();
             }
             
             if (!string.IsNullOrEmpty(token))
@@ -35,7 +31,7 @@ namespace TemplateProject.Middleware
                 {
                     // Validate the token
                     var tokenHandler = new JwtSecurityTokenHandler();
-                    var jwtSettings = _configuration.GetSection("JWT");
+                    var jwtSettings = configuration.GetSection("JWT");
                     var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"] ?? throw new Exception("JWT not configured!"));
 
                     // Validate token and get expiration time
@@ -51,37 +47,51 @@ namespace TemplateProject.Middleware
                         ClockSkew = TimeSpan.Zero
                     };
 
-                    // This will throw an exception if the token is invalid
                     var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
                     
-                    // Get token expiration time
                     if (validatedToken is JwtSecurityToken jwtToken)
                     {
                         var expiration = jwtToken.ValidTo;
                         var timeRemaining = expiration - DateTime.UtcNow;
                         
-                        // No need to add session timeout information to response headers
-                        // as the client can extract this information directly from the JWT
-
-                        // Check if token needs to be refreshed (less than halfway through its lifetime)
                         var expiryMinutes = int.Parse(jwtSettings["ExpiryMinutes"] ?? "30");
                         var refreshThreshold = TimeSpan.FromMinutes(expiryMinutes / 2.0);
                         
                         if (timeRemaining < refreshThreshold)
                         {
-                            // Proactively refresh the token
-                            var username = principal.FindFirst(ClaimTypes.Name)?.Value;
+                            var username = principal.FindFirst("username")?.Value;
                             if (!string.IsNullOrEmpty(username))
                             {
-                                // Get employee from username
-                                var employee = await _employeeProvider.FindEmployeeByUserName(username);
+                                var employee = await employeeProvider.FindEmployeeByUserName(username);
                                 if (employee != null)
                                 {
-                                    // Generate a new token using the JWT provider
-                                    var newToken = await _jwtProvider.GenerateToken(employee);
+                                    // Extract system and department roles from the current token
+                                    var systemRoles = new List<SystemRole>();
+                                    var departmentRoles = new List<DepartmentRoleMappingEntry>();
                                     
-                                    // Add the new token to the response headers
+                                    foreach (var claim in principal.Claims.Where(c => c.Type == ClaimTypes.Role))
+                                    {
+                                        if (claim.Value.StartsWith("system:"))
+                                        {
+                                            var roleKey = claim.Value.Substring("system:".Length);
+                                            systemRoles.Add(SystemRole.FromKey(roleKey));
+                                        }
+                                        else if (claim.Value.StartsWith("department:"))
+                                        {
+                                            var parts = claim.Value.Substring("department:".Length).Split(':');
+                                            if (parts.Length == 2)
+                                            {
+                                                var departmentCode = parts[0];
+                                                var roleKey = parts[1];
+                                                departmentRoles.Add(new DepartmentRoleMappingEntry(departmentCode, DepartmentRole.FromKey(roleKey)));
+                                            }
+                                        }
+                                    }
+                                    
+                                    // Use the overloaded method that accepts roles
+                                    var newToken = jwtProvider.GenerateToken(employee, systemRoles, departmentRoles);
                                     context.Response.Headers.Append("X-New-Token", newToken);
+                                    _logger.LogInformation("Sending new refresh token for employee with number {EmployeeNumber}", employee.EmployeeNumber);
                                 }
                             }
                         }

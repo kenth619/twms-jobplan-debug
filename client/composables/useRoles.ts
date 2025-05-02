@@ -1,51 +1,6 @@
-const emptyEmployee = {
-    employeeNumber: '',
-    username: '',
-    firstName: '',
-    lastName: '',
-    fullName: '',
-    department: '',
-    division: '',
-    employeeStatus: '',
-    label: '',
-    systemRoles: [],
-    departmentRoleMapping: [],
-}
-
-export default function useEmployeeData() {
+export default function useRoles() {
     const authStore = useAuthStore()
-    const { isAuthenticated } = storeToRefs(authStore)
-
-    function getEmployeeDataCached(): EmployeeWithRoles {
-        try {
-            const cached = localStorage.getItem('employeeData')
-            const parsed = JSON.parse(cached ?? '')
-            return employeeWithRolesSchema.validateSync(parsed)
-        }
-        catch {
-            return emptyEmployee
-        }
-    }
-
-    const employeeDataCached = ref(getEmployeeDataCached())
-
-    const { data: employeeData } = useQuery<EmployeeWithRoles>({
-        queryKey: ['employee-data'],
-        queryFn: async () => {
-            try {
-                const data = await $api<EmployeeWithRoles>('/api/status')
-                const parsed = await employeeWithRolesSchema.validate(data)
-                localStorage.setItem('employeeData', JSON.stringify(parsed))
-                employeeDataCached.value = parsed
-                return parsed
-            }
-            catch {
-                return emptyEmployee
-            }
-        },
-        enabled: isAuthenticated,
-        placeholderData: () => employeeDataCached.value,
-    })
+    const { employeeData } = storeToRefs(authStore)
 
     const systemRoles = computed<SystemRole[]>(() => employeeData.value?.systemRoles ?? [])
     const departmentRoleMapping = computed<DepartmentRoleMappingEntry[]>(() => employeeData.value?.departmentRoleMapping ?? [])
@@ -78,7 +33,6 @@ export default function useEmployeeData() {
     }
 
     return {
-        employeeData,
         systemRoles,
         departmentRoleMapping,
         has,

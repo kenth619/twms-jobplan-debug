@@ -1,4 +1,4 @@
-﻿namespace TemplateProject.Providers.AuthProvider
+﻿namespace TWMSServer.Providers.AuthProvider
 {
     public class MockAuthProvider : IAuthProvider
     {        

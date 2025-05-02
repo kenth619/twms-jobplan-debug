@@ -8,12 +8,12 @@ export async function $api<T>(
 ): Promise<T> {
     const config = useRuntimeConfig()
     const authStore = useAuthStore()
-    const { clearToken, setToken } = authStore
+    const { logout, setToken } = authStore
 
-    function updateAuthState(headers: Headers) {
+    async function updateAuthState(headers: Headers) {
         const newToken = headers.get('x-new-token')
         if (newToken) {
-            setToken(newToken)
+            await setToken(newToken)
         }
     }
 
@@ -30,7 +30,7 @@ export async function $api<T>(
         baseURL: config.public.apiBase,
         headers,
         async onResponse({ response }: { response: FetchResponse<T> }) {
-            updateAuthState(response.headers)
+            await updateAuthState(response.headers)
         },
     }
 
@@ -45,7 +45,7 @@ export async function $api<T>(
         if (error instanceof FetchError && error.response?.status === 401) {
             // We no longer need to manually refresh tokens on 401 errors since the server proactively refreshes tokens
             // Just logout and redirect to login page
-            clearToken()
+            logout()
             navigateTo('/auth/login')
         }
         throw error

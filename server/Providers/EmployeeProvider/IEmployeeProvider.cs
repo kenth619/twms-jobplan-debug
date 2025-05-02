@@ -1,6 +1,6 @@
-﻿using TemplateProject.Model;
+﻿using TWMSServer.Model;
 
-namespace TemplateProject.Providers.EmployeeProvider
+namespace TWMSServer.Providers.EmployeeProvider
 {
     public interface IEmployeeProvider
     {

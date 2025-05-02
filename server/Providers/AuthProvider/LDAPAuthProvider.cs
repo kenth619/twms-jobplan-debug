@@ -2,7 +2,7 @@
 
 // Disable platform compatibility validation.
 // DirectoryServices is a Windows only feature provided by Microsoft.Windows.Compatibility
-namespace TemplateProject.Providers.AuthProvider
+namespace TWMSServer.Providers.AuthProvider
 {
     // Created by Arshad Hosein, 2021-06-30
     // This file implements IAuthProvider using LDAP Authentication.
