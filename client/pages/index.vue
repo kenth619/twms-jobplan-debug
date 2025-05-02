@@ -134,7 +134,7 @@ const approveSelected = async () => {
         />
 
         <div class="mt-4 grid grid-cols-7 gap-4">
-            <Button severity="primary-950">
+            <Button severity="primary">
                 Primary
             </Button>
             <Button severity="secondary">
