@@ -43,9 +43,9 @@ const items = computed<MenuItem[]>(() => {
 
     // Admin sections
     if (hasAny(['system-administrator', 'superuser'])) {
-        if (result.length > 0) {
-            result.push({ separator: true })
-        }
+        // if (result.length > 0) {
+        //     result.push({ separator: true })
+        // }
         result.push({
             label: 'Manage Employees',
             icon: 'material-symbols:manage-accounts',
@@ -54,9 +54,15 @@ const items = computed<MenuItem[]>(() => {
     }
 
     // Sign out is always available
-    if (result.length > 0) {
-        result.push({ separator: true })
-    }
+    // if (result.length > 0) {
+    //     result.push({ separator: true })
+    // }
+
+    result.push({
+        label: 'New Work Order',
+        icon: 'material-symbols:add',
+        command: () => navigateToAndDismiss('/workorders/new'),
+    })
 
     result.push({
         label: 'Sign out',

@@ -201,5 +201,20 @@ const approveSelected = async () => {
                 Danger
             </Button>
         </div>
+
+        <div class="mt-4">
+            <ButtonGroup>
+                <Button
+                    severity="primary"
+                    icon="pi pi-check"
+                    label="Approve"
+                />
+                <Button
+                    severity="danger"
+                    icon="pi pi-times"
+                    label="Reject"
+                />
+            </ButtonGroup>
+        </div>
     </div>
 </template>
