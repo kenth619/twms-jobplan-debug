@@ -28,6 +28,8 @@ namespace TWMSServer.Controllers
             }
         }
 
+
+
         [HttpGet("{departmentCode}")]
         public async Task<ActionResult<Department>> GetDepartmentByCode(string departmentCode)
         {

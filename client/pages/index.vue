@@ -133,6 +133,11 @@ const approveSelected = async () => {
             content="This is the content of my card. It can be anything you want."
         />
 
+        <MyCard
+            title="My Card Title"
+            content="This is the content of my card. It can be anything you want."
+        />
+
         <div class="mt-4 grid grid-cols-7 gap-4">
             <Button severity="primary">
                 Primary

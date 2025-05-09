@@ -1,9 +1,10 @@
 <template>
-    <div class="bg-white dark:bg-neutral-900 rounded-md border border-green-500 dark:border-green-700 p-4 mb-5 shadow-2xl">
+    <div class="bg-white dark:bg-neutral-800 rounded-md border border-green-500 dark:border-green-800 p-4 mb-5 shadow-2xl">
         <div class="flex justify-end">
             <Button
                 severity="danger"
                 class="mb-4"
+                @onlick="removeWOLine"
             >
                 <Icon
                     name="material-symbols:delete-outline"
@@ -33,6 +34,7 @@
                     class="w-full p-2"
                     placeholder="Enter asset description"
                     rows="4"
+                    auto-resize
                 />
             </div>
             <div>
@@ -110,7 +112,11 @@
 </template>
 
 <script lang="ts" setup>
-
+const removeWOLine = () => {
+    if (this.counter.value > 1) {
+        this.counter.value--
+    }
+}
 </script>
 
 <style>

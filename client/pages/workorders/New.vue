@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex justify-between mb-5">
+        <div class="flex justify-between mb-2">
             <h1 class="text-2xl font-bold mb-4 dark:text-white">
                 New Work Order
             </h1>
@@ -14,112 +14,19 @@
             </Button>
         </div>
 
-        <div class="bg-white dark:bg-neutral-900 rounded-md border border-green-500 dark:border-green-800 p-4 mb-5 shadow-2xl">
-            <div class="grid grid-cols-3 gap-4 mb-4">
-                <div>
-                    <label for="">Requested By</label>
-                    <InputText
-                        v-model="requestedBy"
-                        type="text"
-                        class="w-full p-2"
-                        placeholder="Enter your name"
-                    />
-                </div>
-                <div>
-                    <label for="">Area/Department</label>
-                    <InputText
-                        type="text"
-                        class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                        placeholder="Enter work order number"
-                    />
-                </div>
-                <div>
-                    <label for="">Section</label>
-                    <InputText
-                        type="text"
-                        class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                        placeholder="Enter work order number"
-                    />
-                </div>
-                <div>
-                    <label for="">Account</label>
-                    <InputText
-                        v-model="requestedBy"
-                        type="text"
-                        class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                        placeholder="Enter your name"
-                    />
-                </div>
-                <div>
-                    <label for="">Cost Centre</label>
-                    <InputText
-                        type="text"
-                        class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                        placeholder="Enter work order number"
-                    />
-                </div>
-                <div>
-                    <label for="">Job Number</label>
-                    <InputText
-                        type="text"
-                        class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                        placeholder="Enter work order number"
-                    />
-                </div>
-                <div>
-                    <label for="">Job Type</label>
-                    <InputText
-                        v-model="requestedBy"
-                        type="text"
-                        class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                        placeholder="Enter your name"
-                    />
-                </div>
-                <div>
-                    <label for="">Job Type Sub-Category</label>
-                    <InputText
-                        type="text"
-                        class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                        placeholder="Enter work order number"
-                    />
-                </div>
-                <div>
-                    <label for="">Priority</label>
-                    <InputText
-                        type="text"
-                        class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                        placeholder="Enter work order number"
-                    />
-                </div>
-                <div>
-                    <label for="">Source Document Type</label>
-                    <InputText
-                        type="text"
-                        class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                        placeholder="Enter work order number"
-                    />
-                </div>
-                <div>
-                    <label for="">Source Document Number</label>
-                    <InputText
-                        type="text"
-                        class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                        placeholder="Enter work order number"
-                    />
-                </div>
-            </div>
-        </div>
+        <WorkOrderHeader />
 
-        <div class="bg-white dark:bg-neutral-900 rounded-md border border-green-500 dark:border-green-800 p-4 mb-6 shadow-2xl">
+        <div class="bg-white dark:bg-neutral-800 rounded-md border border-green-500 dark:border-green-800 p-4 mb-6 shadow-xl">
             <h2 class="text-xl font-semibold mb-2 dark:text-white">
                 Attachments
             </h2>
-            <div>
-                <label for="">Enter RFS ID</label>
+            <label for="">Enter RFS ID</label>
 
-                <InputGroup class="mb-5 w-1/2">
-                    <InputText
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <InputGroup class="mb-5">
+                    <InputNumber
                         placeholder="RFS ID"
+                        :use-grouping="false"
                     />
                     <InputGroupAddon>
                         <Button>
@@ -131,63 +38,66 @@
                         </Button>
                     </InputGroupAddon>
                 </InputGroup>
-
-                <p>Select type of document to upload</p>
-                <Select
-                    v-model="docType"
-                    placeholder="Select Document Type"
-                    :options="options"
-                    option-label="name"
-                    show-clear
-                    class="mb-5"
-                />
-
-                <FileUpload
-                    v-show="docType"
-                    ref="fileupload"
-                    name="demo[]"
-                    url="/api/upload"
-                    accept="image/*"
-                    :max-file-size="1000000"
-                >
-                    <template #empty>
-                        <span>Drag and drop files or click on the button above to upload</span>
-                    </template>
-                </FileUpload>
-
-                <DataTable class="mt-5">
-                    <template #empty>
-                        No files uploaded
-                    </template>
-                    <Column
-                        field="id"
-                        header="Document Type"
-                        sortable
-                    />
-                    <Column
-                        field="description"
-                        header="File Name"
-                        sortable
-                    />
-                    <Column
-                        field="status"
-                        header="Date Uploaded"
-                        sortable
-                    />
-                    <Column
-                        field="status"
-                        header="Uploaded By"
-                        sortable
-                    />
-                    <Column
-                        field="status"
-                        header="Remarks"
-                    />
-                </DataTable>
             </div>
+
+            <p>Select type of document to upload</p>
+            <Select
+                v-model="docType"
+                placeholder="Select Document Type"
+                :options="options"
+                option-label="name"
+                show-clear
+                class="mb-5"
+            />
+
+            <FileUpload
+                v-show="docType"
+                ref="fileupload"
+                name="demo[]"
+                url="/api/upload"
+                accept="image/*, text/plain, application/pdf, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                :max-file-size="15729000"
+            >
+                <template #empty>
+                    <span><i>Drag and drop files or click on the button above to upload</i></span>
+                </template>
+            </FileUpload>
+
+            <DataTable class="mt-5">
+                <template #empty>
+                    No files uploaded
+                </template>
+                <Column
+                    field="id"
+                    header="Document Type"
+                    sortable
+                />
+                <Column
+                    field="description"
+                    header="File Name"
+                    sortable
+                />
+                <Column
+                    field="status"
+                    header="Date Uploaded"
+                    sortable
+                />
+                <Column
+                    field="status"
+                    header="Uploaded By"
+                    sortable
+                />
+                <Column
+                    field="status"
+                    header="Remarks"
+                />
+            </DataTable>
         </div>
 
-        <Button class="mb-2">
+        <Button
+            class="mb-2"
+            @click="addWOLine"
+        >
             <Icon
                 name="material-symbols:add"
                 size="1.5rem"
@@ -195,9 +105,14 @@
             Add Work Order Line
         </Button>
 
-        <WorkOrderLine />
+        <div
+            v-for="i in counter"
+            :key="i"
+        >
+            <WorkOrderLine />
+        </div>
 
-        <div class="bg-white dark:bg-neutral-900 rounded-md border border-green-500 dark:border-green-800 p-4 mb-6 shadow-2xl">
+        <div class="bg-white dark:bg-neutral-800 rounded-md border border-green-500 dark:border-green-800 p-4 mb-6 shadow-xl">
             <h2 class="text-xl font-semibold mb-2 dark:text-white">
                 Work Order Plan Priority
             </h2>
@@ -233,10 +148,11 @@
                 class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
                 placeholder="Enter asset description"
                 rows="3"
+                auto-resize
             />
         </div>
 
-        <div class="flex justify-end">
+        <div class="flex justify-end mb-4">
             <Button>
                 <Icon
                     name="material-symbols:save"
@@ -255,9 +171,11 @@ import InputGroup from 'primevue/inputgroup'
 import InputGroupAddon from 'primevue/inputgroupaddon'
 import Select from 'primevue/select'
 import Textarea from 'primevue/textarea'
+import WorkOrderHeader from '~/components/WorkOrderHeader.vue'
 import WorkOrderLine from '~/components/WorkOrderLine.vue'
 
-const requestedBy = ref('')
+const counter = ref(1)
+
 const docType = ref('')
 const options = ref([
     { name: 'Job Sheet', code: 'job_sheet' },
@@ -267,6 +185,10 @@ const options = ref([
     { name: 'Pole and Guy Notice', code: 'pole_and_guy_notice' },
     { name: 'Condition of Supply Letter', code: 'condition_of_supply_letter' },
 ])
+
+const addWOLine = () => {
+    counter.value++
+}
 </script>
 
 <style>
