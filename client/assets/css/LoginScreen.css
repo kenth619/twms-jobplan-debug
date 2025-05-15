@@ -1,0 +1,126 @@
+/* LoginScreen.css */
+
+/* Fullscreen background */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.login-background {
+    background-image: url('/images/login-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex: 1; /* Fills remaining space between header and footer */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    padding-top: 60px; /* Space from top after header */
+    padding-bottom: 60px;
+}
+
+/* Login form styling */
+#login-form {
+    background: rgba(0, 0, 0, 0.4); /* Dark semi-transparent */
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    width: 100%;
+    max-width: 500px;
+    max-height: 350px;
+    color: white;
+}
+
+
+/* Inputs */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    background: rgba(255, 255, 255, 1);
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+/* Placeholder styling - White by default */
+input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+label, h4 {
+    color: #fff;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.3s ease-in-out;
+    z-index: 2; /* Ensure the icon stays on top of the password field */
+}
+
+.password-container .password-toggle i {
+    color: #000 !important; /* Make sure the icon has a visible color */
+    filter: drop-shadow(0 0 1px white); /* Helps visibility on dark images */
+}
+
+/* When password field is focused, make eye icon black */
+.password-container input:focus ~ .password-toggle i {
+    color: #000;
+}
+
+.login-button {
+    width: 100%;
+    display: block;
+}
+
+
+.login-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.login-header {
+    background-color: #385940;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-title-wrapper {
+    white-space: nowrap; /* Prevents wrapping */
+  }
+  
+  .login-logo {
+    height: 40px;
+    width: auto;
+    display: inline-block;
+  }
+  
+  .app-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-left: 8px;
+    display: inline-block;
+  }
+  
+  
+
+.login-footer {
+    margin-top: auto;
+    padding: 15px 0;
+    background: #385940;
+    color: #fff;
+    font-size: 0.9rem;
+}

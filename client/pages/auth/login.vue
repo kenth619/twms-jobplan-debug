@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import '@/assets/css/LoginScreen.css'
 import { useForm, Field } from 'vee-validate'
 import * as yup from 'yup'
 
@@ -66,6 +67,15 @@ const onSubmit = handleSubmit(async (values) => {
     }
 })
 
+const showPassword = ref(false)
+
+function togglePassword() {
+    const passwordField = document.getElementById('password-field') as HTMLInputElement
+    showPassword.value = !showPassword.value
+    passwordField.type = showPassword.value ? 'text' : 'password'
+}
+
+
 const showInactivityLogoutModal = ref(route.query.inactiveLogout === 'true')
 
 onMounted(async () => {
@@ -75,100 +85,57 @@ onMounted(async () => {
 })
 </script>
 
+
 <template>
-    <div class="flex flex-grow h-full">
-        <div class="m-auto w-full max-w-md p-8 mt-[4.5rem] bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-            <div class="text-center mb-8">
-                <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-                    T&TEC Log In
-                </h1>
-                <p class="text-gray-600 dark:text-gray-300">
-                    Same as computer login
-                </p>
+    <div class="login-page-wrapper">
+        <!-- Header -->
+        <header class="login-header d-flex align-items-center px-4 py-2">
+            <div class="d-inline-flex align-items-center logo-title-wrapper" style="margin-left: 250px;">
+                <img src="/images/logo.png" alt="Logo" class="login-logo" />
+                <h2 class="app-title mb-0 ml-2">TWMS</h2>
             </div>
+        </header>
 
-            <form @submit="onSubmit">
-                <div class="space-y-2 mb-4">
-                    <label
-                        for="username"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                        Username
-                    </label>
-                    <Field
-                        v-slot="{ field, errorMessage }"
-                        name="username"
-                    >
-                        <InputText
-                            id="username"
-                            v-bind="field"
-                            fluid
-                            :invalid="!!errorMessage"
-                            placeholder="Enter your username"
-                            autocomplete="username"
-                        />
-                        <ErrorMessage :error-message="errorMessage" />
-                    </Field>
+
+
+        <!-- Main Login Form Section -->
+        <div class="login-background">
+            <form id="login-form" @submit.prevent="onSubmit">
+                <h4 class="text-center pb-3">LOG IN</h4>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <Field id="username" name="username" type="text" class="form-control"
+                        placeholder="Enter your TTEC username (Same as Computer Login)" />
+                    <ErrorMessage name="username" class="text-danger text-sm" />
                 </div>
 
-                <div class="space-y-2 mb-4">
-                    <label
-                        for="password"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                        Password
-                    </label>
-                    <Field
-                        v-slot="{ field, errorMessage }"
-                        name="password"
-                    >
-                        <Password
-                            id="password"
-                            v-bind="field"
-                            :invalid="!!errorMessage"
-                            fluid
-                            toggle-mask
-                            :feedback="false"
-                            placeholder="Enter your password"
-                            autocomplete="current-password"
-                        />
-                        <ErrorMessage :error-message="errorMessage" />
-                    </Field>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <Field id="password-field" name="password" type="password" class="form-control"
+                            placeholder="Please enter your password" />
+                        <span class="password-toggle" @click="togglePassword">
+                            <i class="fas" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </span>
+                    </div>
+                    <ErrorMessage name="password" class="text-danger text-sm" />
                 </div>
 
-                <Message
-                    v-if="loginError"
-                    severity="error"
-                    class="w-full"
-                >
+                <div class="form-group pt-2">
+                    <Button type="submit" :loading="loading" class="w-full mt-4" label="Sign In" />
+                    <!-- <Button type="submit" label="Log In" :loading="loading" class="login-button" /> -->
+                </div>
+
+                <Message v-if="loginError" severity="error" :closable="false" class="mt-3">
                     {{ loginError }}
                 </Message>
-
-                <Button
-                    type="submit"
-                    :loading="loading"
-                    class="w-full mt-4"
-                    label="Sign In"
-                />
             </form>
         </div>
 
-        <Dialog
-            v-model:visible="showInactivityLogoutModal"
-            modal
-            header="Session Expired"
-            class="w-[90vw] xl:max-w-[30rem]"
-        >
-            <p>
-                You have been automatically logged out due to inactivity.
-            </p>
-            <template #footer>
-                <Button
-                    label="OK"
-                    severity="primary"
-                    @click="showInactivityLogoutModal = false"
-                />
-            </template>
-        </Dialog>
+        <!-- Footer -->
+        <footer class="login-footer text-center">
+            <p>© {{ new Date().getFullYear() }} Trinidad and Tobago Electricity Commission. All Rights Reserved.</p>
+        </footer>
     </div>
 </template>
