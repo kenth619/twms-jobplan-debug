@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import '@/assets/css/LoginScreen.css'
-import { useForm, Field } from 'vee-validate'
+import { useForm, Field, ErrorMessage } from 'vee-validate'
 import * as yup from 'yup'
 
 definePageMeta({
