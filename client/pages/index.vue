@@ -133,6 +133,11 @@ const approveSelected = async () => {
             content="This is the content of my card. It can be anything you want."
         />
 
+        <MyCard
+            title="My Card Title"
+            content="This is the content of my card. It can be anything you want."
+        />
+
         <div class="mt-4 grid grid-cols-7 gap-4">
             <Button severity="primary">
                 Primary
@@ -200,6 +205,21 @@ const approveSelected = async () => {
             >
                 Danger
             </Button>
+        </div>
+
+        <div class="mt-4">
+            <ButtonGroup>
+                <Button
+                    severity="primary"
+                    icon="pi pi-check"
+                    label="Approve"
+                />
+                <Button
+                    severity="danger"
+                    icon="pi pi-times"
+                    label="Reject"
+                />
+            </ButtonGroup>
         </div>
     </div>
 </template>

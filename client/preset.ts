@@ -17,6 +17,20 @@ export const MyPreset = definePreset(Lara, {
             950: '{green.950}',
         },
 
+        components: {
+            menu: {
+                ColorScheme: {
+                    light: {
+                        separator: {
+                            primary: {
+                                color: '{neutral.800}',
+                            },
+                        },
+                    },
+                },
+            },
+        },
+
         // colorSceme: {
         //     light: {
         //         surface: {

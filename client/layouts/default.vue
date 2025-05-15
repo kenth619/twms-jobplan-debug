@@ -27,8 +27,17 @@ watch(collapsed, () => {
 
 <template>
     <div class="flex flex-col xl:flex-row h-screen overflow-hidden">
+        <!-- footer -->
+        <div>
+            <div class="fixed bottom-0 z-30 flex justify-center w-full !bg-[#385940] text-white">
+                <div class="text-sm">
+                    &copy; 2025 Trinidad and Tobago Electricity Commission. All rights reserved.
+                </div>
+            </div>
+        </div>
+
         <div
-            class="hidden xl:block relative flex-shrink-0 border border-t-0 border-[#384959] !text-white overflow-clip transition-all duration-300 ease-in-out shadow-2xl"
+            class="hidden xl:block relative flex-shrink-0 border border-t-0 border-[#384959] !text-white overflow-clip transition-all duration-300 ease-in-out shadow-2xl z-40"
             :class="sidebarWidth"
         >
             <span
