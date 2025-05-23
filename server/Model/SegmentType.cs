@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TWMSServer.Model
 {
-    [Table("tbl_Segment_Types")]
+    [Table("tblSegment_Types")]
     public class SegmentType
     {
         [Key]
-        [Display(Name = "Sequentially Server Generated Segment Type ID number")]
-        public int Segment_Type_ID { get; set; }
+        [Display(Name = "Sequentially Server Generated Segment Type Id number")]
+        public int SegmentTypeId { get; set; }
 
         [MaxLength(25)]
         [Display(Name = "Description of the Segment Type")]
-        public required string Segment_Type_Desc { get; set; }
+        public required string SegmentTypeDescription { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

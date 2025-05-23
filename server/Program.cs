@@ -141,6 +141,8 @@ builder.Services.AddQuartzServer(opt =>
     opt.WaitForJobsToComplete = true;
 });
 
+builder.Services.AddDbContext<TWMSServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TWMSServerConnectionString")));
+
 builder.Services.AddHostedService<TWMSServer.Jobs.JobScheduleInitializer>();
 
 var app = builder.Build();

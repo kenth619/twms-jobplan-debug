@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TWMSServer;
 
@@ -11,9 +12,11 @@ using TWMSServer;
 namespace TWMSServer.Migrations
 {
     [DbContext(typeof(TWMSServerContext))]
-    partial class TemplateProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20250522172447_InitialWorkOrderAssetJobPlan")]
+    partial class InitialWorkOrderAssetJobPlan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,7 +106,7 @@ namespace TWMSServer.Migrations
 
                     b.HasIndex("WorkOrderId");
 
-                    b.ToTable("tblAssets");
+                    b.ToTable("tbl_Assets");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.AssetAttribute", b =>
@@ -140,7 +143,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("AssetAttributeId");
 
-                    b.ToTable("tblAssets_Attributes");
+                    b.ToTable("tbl_Assets_Attributes");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.AssetClass", b =>
@@ -172,7 +175,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("AssetClassId");
 
-                    b.ToTable("tblAssets_Classes");
+                    b.ToTable("tbl_Assets_Classes");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.AssetClassAttrMap", b =>
@@ -199,7 +202,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("ClassAttrId");
 
-                    b.ToTable("tblAssets_Classes_Attr_Maps");
+                    b.ToTable("tbl_Assets_Classes_Attr_Maps");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.AssetFailure", b =>
@@ -248,7 +251,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("AssetFailureId");
 
-                    b.ToTable("tblAssets_Failures");
+                    b.ToTable("tbl_Assets_Failures");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.AssetManufacturer", b =>
@@ -266,7 +269,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("AssetStatusId");
 
-                    b.ToTable("tblAssets_Manufacturers");
+                    b.ToTable("tbl_Assets_Manufacturers");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.AssetStatus", b =>
@@ -298,7 +301,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("AssetStatusId");
 
-                    b.ToTable("tblAssets_Statuses");
+                    b.ToTable("tbl_Assets_Statuses");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.DepartmentRoleAssignment", b =>
@@ -424,7 +427,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("FeederId");
 
-                    b.ToTable("tblFeeders");
+                    b.ToTable("tbl_Feeders");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.JobPlanStatus", b =>
@@ -456,7 +459,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("JobPlanStatusId");
 
-                    b.ToTable("tblJob_Plans_Statuses");
+                    b.ToTable("tbl_Job_Plans_Statuses");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.JobPlansHeader", b =>
@@ -487,7 +490,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("Job_PlanId");
 
-                    b.ToTable("tblJob_Plans_Headers");
+                    b.ToTable("tbl_Job_Plans_Headers");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.JobPlansLine", b =>
@@ -524,7 +527,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("Job_PlanLineId");
 
-                    b.ToTable("tblJob_Plans_Lines");
+                    b.ToTable("tbl_Job_Plans_Lines");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.JobSchedule", b =>
@@ -589,7 +592,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("RingId");
 
-                    b.ToTable("tblRings");
+                    b.ToTable("tbl_Rings");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.SegmentPoint", b =>
@@ -621,7 +624,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("SegmentPointId");
 
-                    b.ToTable("tblSegment_Points");
+                    b.ToTable("tbl_Segment_Points");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.SegmentType", b =>
@@ -653,7 +656,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("SegmentTypeId");
 
-                    b.ToTable("tblSegment_Types");
+                    b.ToTable("tbl_Segment_Types");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.Substation", b =>
@@ -685,7 +688,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("SubstationId");
 
-                    b.ToTable("tblSubstations");
+                    b.ToTable("tbl_Substations");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.SystemRoleAssignment", b =>
@@ -738,7 +741,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("TxCircuitId");
 
-                    b.ToTable("tblTx_Circuits");
+                    b.ToTable("tbl_Tx_Circuits");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.WorkOrder", b =>
@@ -790,7 +793,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("ZoneId");
 
-                    b.ToTable("tblZones");
+                    b.ToTable("tbl_Zones");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.Asset", b =>

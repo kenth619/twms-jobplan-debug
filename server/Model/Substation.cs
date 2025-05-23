@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TWMSServer.Model
 {
-    [Table("tbl_Substations")]
+    [Table("tblSubstations")]
     public class Substation
     {
         [Key]
-        [Display(Name = "Sequentially Server Generated Substation ID number")]
-        public int Substation_ID { get; set; }
+        [Display(Name = "Sequentially Server Generated Substation Id number")]
+        public int SubstationId { get; set; }
 
         [MaxLength(25)]
         [Display(Name = "Name of the Substation")]
-        public required string Substation_Name { get; set; }
+        public required string SubstationName { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

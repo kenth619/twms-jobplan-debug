@@ -4,19 +4,19 @@
 
 // namespace TWMSServer.Model
 // {
-//     [Table("tbl_Asset_Attr_Values")]
-//     public class AssetAttrValue
+//     [Table("tbl_Asset_Attribute_Values")]
+//     public class AssetAttributeValue
 //     {
 //         [Key]
 //         [MaxLength(50)]
 //         [Display(Name = "Composite Primary Key")]
-//         public string Asset_ID, Attr_ID { get; set; }
+//         public string AssetId, AttributeId { get; set; }
 
-        // [Display(Name = "Sequentially Server Generated Asset ID number")]
-        // public int Asset_ID { get; set; }
+        // [Display(Name = "Sequentially Server Generated Asset Id number")]
+        // public int AssetId { get; set; }
 
-        // [Display(Name = "Sequentially Server Generated Attribute ID number")]
-        // public long Attr_ID { get; set; }
+        // [Display(Name = "Sequentially Server Generated Attribute Id number")]
+        // public long AttributeId { get; set; }
 
 //         [MaxLength(50)]
 //         [Display(Name = "Value of Attribute")]
@@ -24,7 +24,7 @@
 
 //         [MaxLength(25)]
 //         [Display(Name = "Unit of measurement of attribute. E.g. kV for BIL rating")]
-//         public string Unit_Measure { get; set; }
+//         public string UnitMeasure { get; set; }
 
 //         public DateTime DateCreated { get; set; }
 //         public DateTime DateModified { get; set; }

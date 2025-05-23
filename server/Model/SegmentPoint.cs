@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TWMSServer.Model
 {
-    [Table("tbl_Segment_Points")]
+    [Table("tblSegment_Points")]
     public class SegmentPoint
     {
         [Key]
-        [Display(Name = "Sequentially Server Generated Segment Point ID number")]
-        public int Segment_Point_ID { get; set; }
+        [Display(Name = "Sequentially Server Generated Segment Point Id number")]
+        public int SegmentPointId { get; set; }
 
         [MaxLength(25)]
         [Display(Name = "Start point name for the segment")]
-        public required string Segment_Point_Name { get; set; }
+        public required string SegmentPointName { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

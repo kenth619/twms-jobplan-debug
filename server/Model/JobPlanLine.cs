@@ -4,21 +4,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TWMSServer.Model
 {
-    [Table("tbl_Job_Plans_Lines")]
+    [Table("tblJob_Plans_Lines")]
     public class JobPlansLine
     {
         [Key]
-        [Display(Name = "Sequentially Server Generated Job Plan Line (Task) ID number")]
-        public int Job_Plan_Line_ID { get; set; }
+        [Display(Name = "Sequentially Server Generated Job Plan Line (Task) Id number")]
+        public int Job_PlanLineId { get; set; }
 
-        [Display(Name = "Sequentially Server Generated Job Plan ID number")]
-        public int Job_Plan_ID { get; set; }
+        [Display(Name = "Sequentially Server Generated Job Plan Id number")]
+        public int JobPlanId { get; set; }
 
         [Display(Name = "Sequentially Generated Task No")]
-        public int Job_Plan_Line_No { get; set; }
+        public int JobPlanLineNo { get; set; }
 
         [Display(Name = "Description of Line (Task)")]
-        public required string Job_Plan_Line_Desc { get; set; }
+        public required string JobPlanLineDesc { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

@@ -4,15 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TWMSServer.Model
 {
-    [Table("tbl_Feeders")]
+    [Table("tblFeeders")]
     public class Feeder
     {
-        [Display(Name = "Sequentially Server Generated Feeder ID number")]
-        public int Feeder_ID { get; set; }
+        [Key]
+        [Display(Name = "Sequentially Server Generated Feeder Id number")]
+        public int FeederId { get; set; }
 
         [MaxLength(25)]
         [Display(Name = "Name of the Feeder")]
-        public required string Feeder_Name { get; set; }
+        public required string FeederName { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

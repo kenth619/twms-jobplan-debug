@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TWMSServer.Model
 {
-    [Table("tbl_Rings")]
+    [Table("tblRings")]
     public class Ring
     {
         [Key]
-        [Display(Name = "Sequentially Server Generated Ring ID number")]
-        public int Ring_ID { get; set; }
+        [Display(Name = "Sequentially Server Generated Ring Id number")]
+        public int RingId { get; set; }
 
         [MaxLength(25)]
         [Display(Name = "Name of the Ring")]
-        public required string Ring_Name { get; set; }
+        public required string RingName { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

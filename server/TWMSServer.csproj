@@ -5,11 +5,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Model\AssetAttribute.cs" />
-    <Compile Remove="Model\AssetAttrValue.cs" />
-  </ItemGroup>
   
   <ItemGroup>
     <Content Update="Publish\*json">
@@ -21,8 +16,6 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </Content>
 		<Folder Include=".\wwwroot\" />
-		<None Include="Model\AssetAttribute.cs" />
-		<None Include="Model\AssetAttrValue.cs" />
     <Content Update="secrets.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>

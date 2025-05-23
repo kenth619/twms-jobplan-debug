@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TWMSServer.Model
 {
-    [Table("tbl_Assets_Statuses")]
+    [Table("tblAssets_Statuses")]
     public class AssetStatus
     {
         [Key]
-        [Display(Name = "Sequentially Server Generated Asset Status ID number")]
-        public int Asset_Status_ID { get; set; }
+        [Display(Name = "Sequentially Server Generated Asset Status Id number")]
+        public int AssetStatusId { get; set; }
 
         [MaxLength(25)]
         [Display(Name = "Current operational status of the asset")]
-        public required string Asset_Status_Desc { get; set; }
+        public required string AssetStatusDescription { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

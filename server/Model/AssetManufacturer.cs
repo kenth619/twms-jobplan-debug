@@ -4,14 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TWMSServer.Model
 {
+    [Table("tblAssets_Manufacturers")]
     public class AssetManufacturer
     {
         [Key]
-        [Display(Name = "Sequentially Server Generated Asset Status ID number")]
-        public int Asset_Status_ID { get; set; }
+        [Display(Name = "Sequentially Server Generated Asset Status Id number")]
+        public int AssetStatusId { get; set; }
 
         [MaxLength(25)]
         [Display(Name = "Description of the status of the asset")]
-        public required string Asset_Status_Desc { get; set; }
+        public required string AssetStatusDescription { get; set; }
     }
 }

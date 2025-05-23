@@ -1,11 +1,13 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using MimeKit;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TWMSServer.Model
 {
     public class EmailData
     {
+        [Key]
         public int EmailDataId { get; set; }
         public DateTime? SentSuccessfullyAt { get; set; } 
         public string TemplateName { get; set; } = string.Empty;

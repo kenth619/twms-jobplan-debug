@@ -1,7 +1,11 @@
-﻿namespace TWMSServer.Model
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TWMSServer.Model
 {
     public class Department : IComparable
     {
+        [Key]
         public string Code { get; set; } = String.Empty;
         public string Name { get; set; } = String.Empty;
         public string? BusinessUnit { get; set; } = String.Empty;

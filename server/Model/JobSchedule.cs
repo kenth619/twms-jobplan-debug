@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace TWMSServer.Model
 {
     public class JobSchedule
     {
+        [Key]
         public int JobScheduleId { get; set; }
         
         public string JobName { get; set; } = string.Empty;
