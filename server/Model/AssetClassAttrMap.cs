@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TWMSServer.Model
 {
     [Table("tblAssets_Classes_Attribute_Maps")]
-    public class AssetClassAttributeMap
+    public class AssetClassAttrMap
     {
         [Key]
         [Display(Name = "Sequentially Server Generated Class Attribute Id number")]

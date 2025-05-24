@@ -30,7 +30,7 @@ namespace TWMSServer
         public DbSet<AssetClass> tblAssets_Classes { get; set; }
         public DbSet<AssetFailure> tblAssets_Failures { get; set; }
         public DbSet<AssetAttribute> tblAssets_Attributes { get; set; }
-        public DbSet<AssetClassAttrMap> tblAssets_Class_Attr_Maps { get; set; }
+        public DbSet<AssetClassAttrMap> tblAssets_Classes_Attr_Maps { get; set; }
         // public DbSet<AssetAttrValue> tbl_Asset_Attr_Values { get; set; }
         public DbSet<JobPlansHeader> tblJob_Plans_Headers { get; set; }
         public DbSet<JobPlansLine> tblJob_Plans_Lines { get; set; }
