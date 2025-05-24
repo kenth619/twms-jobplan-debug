@@ -9,33 +9,36 @@ namespace TWMSServer.Model
     {
         [Key]
         [Display(Name = "Sequentially Server Generated Asset Failure Id number")]
-        public int AssetFailureId { get; set; }
+        public int AssetFailId { get; set; }
 
         // [Display(Name = "Sequentially Server Generated Asset Id number")]
         // public int AssetId { get; set; }
 
         [Display(Name = "Cumulative MTBF value")]
-        public long CumulativeMTBF { get; set; }
+        public long MTBF { get; set; }
 
         [Display(Name = "Failure Date of Asset")]
-        public DateTime FailureDate { get; set; }
+        public DateTime FailDate { get; set; }
 
         [MaxLength(50)]
         [Display(Name = "Work Order / Trouble Report associated with failure")]
-        public required string SourceDocument { get; set; }
+        public required string SourceDoc { get; set; }
 
         [Display(Name = "Failure Mode when failure occurred, e.g., Shattered insulator")]
-        public required string FailureMode { get; set; }
+        public required string FailMode { get; set; }
 
         [Display(Name = "Failure Cause 1 for Asset, e.g., Failed insulator")]
-        public required string FailureCause1 { get; set; }
+        public required string FailCause1 { get; set; }
 
         [Display(Name = "Failure Cause 2 for Asset, e.g., Animal contact")]
-        public string? FailureCause2 { get; set; }
+        public string? FailCause2 { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+
+        [MaxLength(50)]
         public string CreatedBy { get; set; } = string.Empty;
+        [MaxLength(50)]
         public string ModifiedBy { get; set; } = string.Empty;
     }
 }

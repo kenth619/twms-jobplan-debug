@@ -9,7 +9,7 @@ namespace TWMSServer.Model
     {
         [Key]
         [Display(Name = "Sequentially Server Generated Job Plan Id number")]
-        public int Job_PlanId { get; set; }
+        public int JobPlanId { get; set; }
 
         // [Display(Name = "Sequentially Server Generated Classification Id number")]
         // public int Asset_Class_Id { get; set; }
@@ -22,7 +22,10 @@ namespace TWMSServer.Model
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+
+        [MaxLength(50)]
         public string CreatedBy { get; set; } = string.Empty;
+        [MaxLength(50)]
         public string ModifiedBy { get; set; } = string.Empty;
     }
 }

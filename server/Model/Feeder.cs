@@ -14,10 +14,15 @@ namespace TWMSServer.Model
         [MaxLength(25)]
         [Display(Name = "Name of the Feeder")]
         public required string FeederName { get; set; }
+        [Display(Name = "Whether or not the user can change the record value")]
+        public required bool Status { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+
+        [MaxLength(50)]
         public string CreatedBy { get; set; } = string.Empty;
+        [MaxLength(50)]
         public string ModifiedBy { get; set; } = string.Empty;
     }
 }

@@ -13,18 +13,18 @@ namespace TWMSServer.Model
 
         [MaxLength(25)]
         [Display(Name = "Unique identifier assigned by the manufacturer")]
-        public string? SerialNumber { get; set; }
+        public string? SerialNum { get; set; }
 
         [MaxLength(25)]
         [Display(Name = "Identifier for the model type of the asset")]
-        public string? ModelNumber { get; set; }
+        public string? ModelNum { get; set; }
 
         [Display(Name = "Description of Asset")]
-        public required string AssetDescription { get; set; }
+        public required string AssetDesc { get; set; }
 
         [MaxLength(25)]
         [Display(Name = "GIS Id for asset identification")]
-        public string? AssetGISId { get; set; }
+        public string? AssetGISNum { get; set; }
 
         // [ForeignKey("Asset_Status_Id")]
         // [Display(Name = "Sequentially Server Generated Asset Status Id number")]
@@ -71,7 +71,7 @@ namespace TWMSServer.Model
         // public int Asset_Class_Id { get; set; }
 
         [Display(Name = "Time interval for asset maintenance")]
-        public int? MaintenanceInterval { get; set; }
+        public int? MaintInterval { get; set; }
 
         [MaxLength(25)]
         [Display(Name = "Demarcation starting point of for asset (AutoRecloser / ABS / Section Fuse / T/F / Pole No. / GIS No.) e.g., pole A/12")]
@@ -95,20 +95,24 @@ namespace TWMSServer.Model
         public int? Lvl3PatrolFreq { get; set; }
 
         [Display(Name = "Frequency of aerial inspections")]
-        public int? AerialInspectionFreq { get; set; }
+        public int? AerialInspectFreq { get; set; }
 
         [Display(Name = "Frequency of Thermographic Inspection")]
-        public int? ThermographicFreq { get; set; }
+        public int? ThermoFreq { get; set; }
 
         [Display(Name = "Frequency of Ultrasonic Inspection")]
-        public int? UltrasonicFreq { get; set; }
+        public int? UltraFreq { get; set; }
 
         [Display(Name = "Frequency of Vegetation Patrol")]
-        public int? VegetationPatrolFreq { get; set; }
+        public int? VegPatrolFreq { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+
+        [MaxLength(50)]
         public string CreatedBy { get; set; } = string.Empty;
+
+        [MaxLength(50)]
         public string ModifiedBy { get; set; } = string.Empty;
     }
 }

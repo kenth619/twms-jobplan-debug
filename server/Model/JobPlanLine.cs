@@ -15,14 +15,17 @@ namespace TWMSServer.Model
         public int JobPlanId { get; set; }
 
         [Display(Name = "Sequentially Generated Task No")]
-        public int JobPlanLineNo { get; set; }
+        public int JobPlanLineNum { get; set; }
 
         [Display(Name = "Description of Line (Task)")]
         public required string JobPlanLineDesc { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+
+        [MaxLength(50)]
         public string CreatedBy { get; set; } = string.Empty;
+        [MaxLength(50)]
         public string ModifiedBy { get; set; } = string.Empty;
     }
 }

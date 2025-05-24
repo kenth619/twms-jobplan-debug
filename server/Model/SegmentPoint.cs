@@ -17,7 +17,10 @@ namespace TWMSServer.Model
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+
+        [MaxLength(50)]
         public string CreatedBy { get; set; } = string.Empty;
+        [MaxLength(50)]
         public string ModifiedBy { get; set; } = string.Empty;
     }
 }
