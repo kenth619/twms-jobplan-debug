@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace TWMSServer.Model
 {
@@ -8,17 +9,37 @@ namespace TWMSServer.Model
     public class JobPlansHeader
     {
         [Key]
+        [Column("JobPlanId")]
         [Display(Name = "Sequentially Server Generated Job Plan Id number")]
         public int JobPlanId { get; set; }
 
-        // [Display(Name = "Sequentially Server Generated Classification Id number")]
-        // public int Asset_Class_Id { get; set; }
+        [Column("JobPlanStatus")]
+        [Display(Name = "Status of Job Plan")]
+        [MaxLength(25)]
+        [Required]
+        public bool JobPlanStatus { get; set; } = true; // true by default
 
-        [Display(Name = "Description of job plan")]
-        public required string JobPlanDesc { get; set; }
+        [Column("JobPlanShortDesc")]
+        [Display(Name = "Short Description of Job Plan")]
+        [MaxLength(25)]
+        [Required]
+        public required string JobPlanShortDesc { get; set; } = string.Empty;
 
-        // [Display(Name = "Sequentially Server Generated Job Plan Status Id number")]
-        // public int Job_Plan_Status_Id { get; set; }
+        [Column("JobPlanLongDesc")]
+        [Display(Name = "Long Description of Job Plan")]
+        [Required]
+        public required string JobPlanLongDesc { get; set; } = string.Empty;
+
+        [Column("AssetClassId")]
+        [Display(Name = "Asset Class Id")]
+        [Required]
+        public int AssetClassId { get; set; }
+
+        [Column("AssetClassShortDesc")]
+        [Display(Name = "Short Description of Asset Class")]
+        [MaxLength(25)]
+        [Required]
+        public required string AssetClassShortDesc { get; set; } = string.Empty;
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
@@ -27,5 +48,9 @@ namespace TWMSServer.Model
         public string CreatedBy { get; set; } = string.Empty;
         [MaxLength(50)]
         public string ModifiedBy { get; set; } = string.Empty;
+
+        // Navigation properties
+        [JsonIgnore]
+        public virtual ICollection<JobPlansLine> JobPlansLines { get; set; } = [];
     }
 }
