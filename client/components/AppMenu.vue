@@ -64,6 +64,13 @@ const items = computed<MenuItem[]>(() => {
         command: () => navigateToAndDismiss('/workorders/new'),
     })
 
+    // Added a new navigation entry: Job Plan with associated route /jobplan
+    result.push({
+        label: 'Job Plan', 
+        icon: 'material-symbols:assignment',
+        command: () => navigateToAndDismiss('/jobplan'),
+    })
+
     result.push({
         label: 'Sign out',
         icon: 'material-symbols:logout',
@@ -75,26 +82,11 @@ const items = computed<MenuItem[]>(() => {
 </script>
 
 <template>
-    <Menu
-        v-if="isAuthenticated"
-        :model="items"
-        class="h-full !rounded-none !border-none !bg-[#384940]"
-    >
+    <Menu :model="items" class="h-full !rounded-none !border-none !bg-[#384940]">
         <template #item="{ item, props }">
-            <a
-                v-ripple
-                class="flex flex-row items-center text-nowrap !text-white"
-                v-bind="props.action"
-            >
-                <Icon
-                    v-if="item.icon"
-                    size="1.5rem"
-                    :name="item.icon"
-                />
-                <div
-                    v-if="!collapsed"
-                    class="ml-2 transition-opacity duration-300 text-nowrap "
-                >
+            <a v-ripple class="flex flex-row items-center text-nowrap !text-white" v-bind="props.action">
+                <Icon v-if="item.icon" size="1.5rem" :name="item.icon" />
+                <div v-if="!collapsed" class="ml-2 transition-opacity duration-300 text-nowrap ">
                     {{ item.label }}
                 </div>
             </a>

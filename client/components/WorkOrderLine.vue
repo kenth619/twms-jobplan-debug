@@ -1,124 +1,60 @@
 <template>
-    <div class="bg-white dark:bg-neutral-800 rounded-md border border-green-500 dark:border-green-800 p-4 mb-5 shadow-2xl">
-        <div class="flex justify-end">
-            <Button
-                severity="danger"
-                class="mb-4"
-                @onlick="removeWOLine"
-            >
-                <Icon
-                    name="material-symbols:delete-outline"
-                    size="1.5rem"
-                />
-            </Button>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <label>Asset ID</label>
-                <InputText
-                    type="text"
-                    class="w-full p-2"
-                    placeholder="Enter asset ID"
-                />
-                <label>Asset Classification</label>
-                <InputText
-                    type="text"
-                    class="w-full p-2"
-                    placeholder="Enter asset classification"
-                />
-            </div>
-            <div>
-                <label>Asset Description</label>
-                <Textarea
-                    type="text"
-                    class="w-full p-2"
-                    placeholder="Enter asset description"
-                    rows="4"
-                    auto-resize
-                />
-            </div>
-            <div>
-                <label>Ring</label>
-                <InputText
-                    type="text"
-                    class="w-full p-2"
-                    placeholder="Enter Ring info"
-                />
-            </div>
-            <div>
-                <label>TX Circuit Name</label>
-                <InputText
-                    type="text"
-                    class="w-full p-2"
-                    placeholder="Enter TX circuit name"
-                />
-            </div>
-            <div>
-                <label>Substation Name</label>
-                <InputText
-                    type="text"
-                    class="w-full p-2"
-                    placeholder="Enter Substation Name"
-                />
-            </div>
-            <div>
-                <label>Feeder Name</label>
-                <InputText
-                    type="text"
-                    class="w-full p-2"
-                    placeholder="Enter Feeder name"
-                />
-            </div>
-            <div>
-                <label>Zone</label>
-                <InputText
-                    type="text"
-                    class="w-full p-2"
-                />
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label>Segment From</label>
-                    <InputText
-                        type="text"
-                        class="w-full p-2"
-                    />
-                </div>
-                <div>
-                    <label>Segment To</label>
-                    <InputText
-                        type="text"
-                        class="w-full p-2"
-                    />
-                </div>
-            </div>
-            <div>
-                <label>Street Name/Label</label>
-                <InputText
-                    type="text"
-                    class="w-full p-2"
-                />
-            </div>
-            <div />
-            <div>
-                <label>Remarks</label>
-                <InputText
-                    type="text"
-                    class="w-full p-2"
-                />
-            </div>
+    <div>
+        <div
+            class="bg-white dark:bg-neutral-800 rounded-md border border-green-500 dark:border-green-800 p-4 mb-5 shadow-xl">
+            <h2 class="text-xl font-semibold mb-2">
+                Work Order Lines
+            </h2>
+            <DataTable :value="workOrderLines" class="w-full">
+                <template #empty>
+                    No work order lines added
+                </template>
+                <Column field="id" header="Line No" sortable />
+                <Column field="status" header="Status" sortable />
+                <Column field="assetId" header="Asset ID" sortable />
+                <Column field="description" header="Asset Description" sortable />
+                <Column field="location" header="Location" sortable />
+                <Column field="remarks" header="Remarks" />
+                <Column>
+                    <template #body>
+                        <ButtonGroup>
+                            <Button class="mb-4" size="small" @click="editWOLine">
+                                <Icon name="material-symbols:edit-square-outline" size="1.5rem" />
+                            </Button>
+                            <Button severity="danger" class="mb-4" size="small"
+                                @click="removeWOLine(workOrderLines.id)">
+                                <Icon name="material-symbols:delete-outline" size="1.5rem" />
+                            </Button>
+                        </ButtonGroup>
+                    </template>
+                </Column>
+            </DataTable>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-const removeWOLine = () => {
-    if (this.counter.value > 1) {
-        this.counter.value--
-    }
+import { useModals } from '@outloud/vue-modals'
+import ModalEditWorkOrderLineDetails from './modal/ModalEditWorkOrderLineDetails.vue'
+
+const workOrderLines = ref([
+    { id: 1, status: 'Open', assetId: 'A123', description: 'Transformer', location: 'Substation A', remarks: 'Urgent' },
+    { id: 2, status: 'Closed', assetId: 'B456', description: 'Switchgear', location: 'Substation B', remarks: 'Routine' },
+])
+
+const modals = useModals()
+
+function editWOLine() {
+    modals.open(ModalEditWorkOrderLineDetails)
+}
+
+const removeWOLine = (line) => {
+    alert('Remove work order line: ' + line)
+    // const index = workOrderLines.value.findIndex(item => item.id === line.id)
+    // if (index !== -1) {
+    //     workOrderLines.value.splice(index, 1)
+    // }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -93,6 +93,7 @@ const approveSelected = async () => {
                 :rows="10"
                 :show-gridlines="true"
                 class="dark:bg-gray-800 dark:text-white"
+                striped-rows
             >
                 <Column
                     selection-mode="multiple"

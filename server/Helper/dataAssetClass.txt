@@ -1,0 +1,153 @@
+Id	AssetClassShortDesc	AssetClassLongDesc
+1	OPSYS	Oil pressure system
+2	SWITCH	Switch
+3	OPGW	OPGW aerial
+4	AUTORECREL	Auto reclose relay
+5	AUXREL	Auxillary relay
+6	EFREL	Earth fault relay
+7	HIMPEDREL	High impedance relay
+8	OCREL	Overcurrent relay
+9	TRIPREL	Trip relay
+10	RTU	Remote terminal Unit
+11	CUTOUT	Line cutout
+12	CT	Current transformer
+13	VACAUTORECLO	Vacuum auto recloser
+14	VACRMU	Vacuum ring main unit
+15	PASPANEL	Protection & SCADA panel
+16	BAYCONREL	Bay Controller relay
+17	BFREL	Breaker Fail relay
+18	TESTTERM	Relay Test Terminal
+19	CBANALYZER	Circuit Breaker Time/Travel & Coil currents
+20	BATTBANK	Battery bank
+21	CONDSPAN	Conductor span
+22	TRANSRATIO	Transformer Turns Ratio Test Set
+23	TRANSWINDRESISTANCE	Transformer Ohmmeter
+24	MULTIFUNCTION	Multi-Function Test Set
+25	SFRA	Sweep Frequency Response Analyzer
+26	TRANSMOISTURECONTENTPAPER	Transformer Paper Moisture Content Test Set
+27	INSULATIONRES	Insulation Resistance Test Set
+28	ACHIPOT	AC Hi Potential Power Freq Test Set
+29	ELECTROSTSTICVOLTMETER	High Potential Voltmeter
+30	RESISTANCECAL	Resistance Measurement Calibrator
+31	CABLE FAULT	
+32	CAPACITOR BANK	
+33	CIRCUIT BOARD	Circuit Board
+34	PARTIALDISCH	Partial Discharge Test Set
+35	ELECTRICALWORKS	Electrical Works
+36	MECHANICALWORKS	Mechanical Works
+37	TESTEQUIP	Test Set
+38	DCHIPOT	DC Hi Potential Test Set
+39	CIRCUIT	Circuit
+40	DCSYS	DC system
+41	LARREST	Lightining arrester
+42	PUMP	Pump
+43	SECURSYS	Security system
+44	SWITHOU	Switch house
+45	UNDCAB	Underground cable Section
+46	FLATBUSBAR	Flat busbar
+47	OHEADCC	Overhead Line
+48	AERIAL	Aerial
+49	CHSYNREL	Check sync relay
+50	LINEDIFFREL	Line differential relay
+51	BATTCHAR	Battery charger
+52	NEUDISREL	Neutral displacement relay
+53	OCEFREL	Overcurrent earth fault relay
+54	TFREL	Transformer Protection Relays
+55	TIMERREL	Timer relay
+56	GPSCLOCK	GPS Clock
+57	IOP	Input/Output Device
+58	AUTORECLO	Auto recloser
+59	CB	Circuit breaker
+60	ISOLEASW	Isolator/earth switch assembly
+61	RMU	Ring main unit
+62	VT	Voltage transformer
+63	OILAUTORECLO	Oil auto recloser
+64	GASRMU	Gas ring main unit
+65	OILRMU	Oil ring main unit
+66	NUMDISTREL	Numeric Distance relay
+67	SUBSTATION	Substation
+68	STANDPAN	Standing panel
+69	WALLMOUNT	Wall Mount
+70	WTPAN	Walk through panel
+71	PSTRIPTEST	Protection Trip Test
+72	PSSYSTRIPS	System Faults
+73	AUXTRIPREL	Auxillary Trip Relay
+74	LKOUTTRIPREL	Lockout Trip Relay
+75	SLFRSTTRIPREL	Self Reset Trip Relay
+76	CBTIMER	Circuit Breaker Open/Close Timer
+77	CTANALYZER	Current Transformer Analyzer
+78	OILBREAKDOWN	Oil Breakdown Test Set
+79	TRANSDUCERCAL	Transducer Calibrator
+80	TRANSFORMERRATIOCAL	Transformer Turns Ratio Calibrator
+81	PRIMARYINJECTION	Primary Injection Test Set
+82	LOIMPEDREL	Low Impedance Relay
+83	SWITCHING STATION	Switching Station
+84	PADMOUNTF	Padmounted Transformer
+85	RELAY	Protection relay
+86	SWITYARDLIG	Switch yard lighting
+87	STRABUSBAR	Stranded busbar
+88	OHUNDCC	Overhead Line & Underground
+89	DISTREL	Distance relay
+90	FLAGREL	Flag relay
+91	OVERVOLTREL	Over voltage relay
+92	UNDERVOLTREL	Under voltage relay
+93	OHLINESP	Overhead Line Support Structure
+94	EASW	Earth switch
+95	OHTF	Pole mounted transformer
+96	GCB	Gas circuit breaker
+97	TFDIFFREL	Transformer Differential Relay
+98	MICROHM	Micro Ohmmeter (Contact Res) Test Set
+99	SECONDARYINJECTION	Relay Test Set
+100	PRIMARY INJECTION	Primary Injection Test Set
+101	DIELECTRIC	Dielectric Test Set
+102	CALIBRATION	Calibration Verification Standard
+103	BATTGROUNDFAULT	Battery Systems Ground Fault Locator
+104	DISOLVGASANALYZER	Dissolved Gas Analyzer
+105	CABLETRACE	Cable Route Tracer
+106	CABLEFAULTEQUIP	Cable Fault Location Equipment
+107	VLFHIPOT	Very Low Frequency Hi Potential
+108	MULTIFUNCTIONCAL	Mulit-Function Calibrator
+109	CABLEPINPOINTER	Cable Pinpointer
+110	CABLEFAULTSCOPE	Cable Fault Prelocation Scope
+111	POWERFACTORTANDELTA	Power Factor Tan Delta Test Set
+112	CABLESURGEGENERATORFILTER	Cable Surge Generator
+113	CAPACITORBANK	
+114	CPSWORKREQUEST	Cove Power Station Work Request
+115	BUILDING	Building
+116	FENCE	Fence
+117	BUSBAR	Busbar
+118	COMPOUND	Compound
+119	FIREQUIP	Fire equipment
+120	LMAST	Lightning mast
+121	SCADA	SCADA devices
+122	STRUCTURE	Structure
+123	TF	Transformer
+124	ASCRAERIAL	ASCR aerial
+125	TUBBUSBAR	Tubular busbar
+126	UGBUSBAR	Cable busbar
+127	ACSYS	AC system
+128	AIRCOMP	Air compressor
+129	UNDERCC	Underground
+130	AVRREL	Automatic voltage regulation relay
+131	DOCEFREL	Directional overcurrent earth fault relay
+132	FREQREL	Frequency relay
+133	INTRPREL	Intertrip relay
+134	NEGSEQREL	Negative sequence relay
+135	SSREL	Supply supervision relay
+136	TCSREL	Trip coil supervision relay
+137	VCHOVERREL	Voltage changeover relay
+138	DATACON	Data Concentrator
+139	SSEQUIPSP	Substation Equipment Support Structure
+140	ABS	Air break switch
+141	FTS	Fault throw switch
+142	ISOL	Isolator
+143	PT	Potential transformer
+144	SSTF	Power transformer
+145	OCB	Oil circuit breaker
+146	VCB	Vacuum circuit breaker
+147	TFREFREL	Transformer REF Relay
+148	STADISTREL	Static Distance relay
+149	REACTIVE_COMPENSATOR	Reactive Compensator
+150	CAPACITOR	Capacitor Bank
+151	OH_LINE_CAPACITOR	Overhead Line Capacitor
+152	SS_CAPACITOR	Substation Capacitor

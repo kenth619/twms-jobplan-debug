@@ -10,6 +10,11 @@ function isPagePublic(path: string): boolean {
 }
 
 export default defineNuxtRouteMiddleware(async (to, _) => {
+    // ✅ Bypass all auth in development mode for UI testing
+    // if (process.dev) {
+    //     return
+    // }
+
     const { isAuthenticated, isSessionExpired, logout } = useAuthStore()
     const { hasAny } = useRoles()
 

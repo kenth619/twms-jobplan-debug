@@ -490,7 +490,7 @@ namespace TWMSServer.Migrations
 
                     b.HasKey("Job_PlanId");
 
-                    b.ToTable("tbl_Job_Plans_Headers");
+                    b.ToTable("tblJob_Plans_Headers");
                 });
 
             modelBuilder.Entity("TWMSServer.Model.JobPlansLine", b =>

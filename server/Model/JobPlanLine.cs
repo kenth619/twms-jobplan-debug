@@ -1,6 +1,7 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
 
 namespace TWMSServer.Model
 {
@@ -8,24 +9,26 @@ namespace TWMSServer.Model
     public class JobPlansLine
     {
         [Key]
-        [Display(Name = "Sequentially Server Generated Job Plan Line (Task) Id number")]
-        public int Job_PlanLineId { get; set; }
+        [Column("Job_Plan_Line_ID")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int JobPlanLineId { get; set; }
 
-        [Display(Name = "Sequentially Server Generated Job Plan Id number")]
+        [Column("Job_Plan_ID")]
+        [Required]
+        [ForeignKey("JobPlansHeader")]
         public int JobPlanId { get; set; }
 
-        [Display(Name = "Sequentially Generated Task No")]
-        public int JobPlanLineNum { get; set; }
+        [Column("Job_Plan_Line_No")]
+        [Required]
+        public long JobPlanLineNo { get; set; }
 
-        [Display(Name = "Description of Line (Task)")]
-        public required string JobPlanLineDesc { get; set; }
+        [Column("Job_Plan_Line_Desc")]
+        [Required]
+        [MaxLength(500)]
+        public string JobPlanLineDesc { get; set; } = string.Empty;
 
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
-
-        [MaxLength(50)]
-        public string CreatedBy { get; set; } = string.Empty;
-        [MaxLength(50)]
-        public string ModifiedBy { get; set; } = string.Empty;
+        // Navigation property
+        [JsonIgnore]
+        public virtual JobPlansHeader JobPlansHeader { get; set; } = null!;
     }
 }

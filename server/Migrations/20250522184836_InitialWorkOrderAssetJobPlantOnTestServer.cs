@@ -47,8 +47,8 @@ namespace TWMSServer.Migrations
                 table: "tbl_Job_Plans_Lines");
 
             migrationBuilder.DropPrimaryKey(
-                name: "PK_tbl_Job_Plans_Headers",
-                table: "tbl_Job_Plans_Headers");
+                name: "PK_tblJob_Plans_Headers",
+                table: "tblJob_Plans_Headers");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_tbl_Feeders",
@@ -115,7 +115,7 @@ namespace TWMSServer.Migrations
                 newName: "tblJob_Plans_Lines");
 
             migrationBuilder.RenameTable(
-                name: "tbl_Job_Plans_Headers",
+                name: "tblJob_Plans_Headers",
                 newName: "tblJob_Plans_Headers");
 
             migrationBuilder.RenameTable(
@@ -357,7 +357,7 @@ namespace TWMSServer.Migrations
 
             migrationBuilder.RenameTable(
                 name: "tblJob_Plans_Headers",
-                newName: "tbl_Job_Plans_Headers");
+                newName: "tblJob_Plans_Headers");
 
             migrationBuilder.RenameTable(
                 name: "tblFeeders",
@@ -437,8 +437,8 @@ namespace TWMSServer.Migrations
                 column: "Job_PlanLineId");
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_tbl_Job_Plans_Headers",
-                table: "tbl_Job_Plans_Headers",
+                name: "PK_tblJob_Plans_Headers",
+                table: "tblJob_Plans_Headers",
                 column: "Job_PlanId");
 
             migrationBuilder.AddPrimaryKey(

@@ -172,7 +172,7 @@ namespace TWMSServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tbl_Job_Plans_Headers",
+                name: "tblJob_Plans_Headers",
                 columns: table => new
                 {
                     Job_PlanId = table.Column<int>(type: "int", nullable: false)
@@ -185,7 +185,7 @@ namespace TWMSServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tbl_Job_Plans_Headers", x => x.Job_PlanId);
+                    table.PrimaryKey("PK_tblJob_Plans_Headers", x => x.Job_PlanId);
                 });
 
             migrationBuilder.CreateTable(
@@ -360,7 +360,7 @@ namespace TWMSServer.Migrations
                 name: "tbl_Feeders");
 
             migrationBuilder.DropTable(
-                name: "tbl_Job_Plans_Headers");
+                name: "tblJob_Plans_Headers");
 
             migrationBuilder.DropTable(
                 name: "tbl_Job_Plans_Lines");

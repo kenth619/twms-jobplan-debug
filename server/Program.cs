@@ -11,6 +11,7 @@ using Quartz;
 using Quartz.AspNetCore;
 using Serilog;
 using System.Text;
+using TWMSServer.Helper; //Registered TWMSServer.Helper namespace for global utility methods.
 
 Serilog.Debugging.SelfLog.Enable(Console.Error);
 
@@ -49,6 +50,10 @@ builder.Services.AddTransient<IEmployeeProvider, EmployeeProvider>();
 builder.Services.AddTransient<EmployeeRolesProvider>();
 builder.Services.AddTransient<EmailProvider>();
 builder.Services.AddTransient<JwtProvider>();
+
+// Log the database connection string for debugging purposes
+Console.WriteLine($"🔍 Using DB connection: {secretsProvider.GetTemplateProjectConnectionString()}");
+
 
 builder.Services.AddAuthentication(options =>
 {
@@ -141,8 +146,6 @@ builder.Services.AddQuartzServer(opt =>
     opt.WaitForJobsToComplete = true;
 });
 
-builder.Services.AddDbContext<TWMSServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TWMSServerConnectionString")));
-
 builder.Services.AddHostedService<TWMSServer.Jobs.JobScheduleInitializer>();
 
 var app = builder.Build();
@@ -161,5 +164,19 @@ app.UseAuthorization();
 app.MapControllers();
 app.UseStaticFiles();
 app.MapFallbackToFile("index.html");
+
+
+// Seed database on startup (optional)
+//  SeedDatabaseAsync() during application startup for controlled seeding.
+
+// bool isSeedData = true;
+// if (isSeedData)
+// {
+//     using (var scope = app.Services.CreateScope())
+//     {
+//         var context = scope.ServiceProvider.GetRequiredService<TWMSServerContext>();
+//         await context.SeedDatabaseAsync();
+//     }
+// }
 
 app.Run();

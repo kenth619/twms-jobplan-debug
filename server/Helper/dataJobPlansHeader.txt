@@ -1,0 +1,312 @@
+1	1000HRSERVICE	1000 Operating Hour Service
+2	2000HRSERVICE	2000 Hour Service
+3	500HRGASTURBINE	500 hr service for Gas Turbine
+4	500HRSERVICE	Perform 500 Running Hour Service
+5	500HRSERVICE	500 Running Hour Service
+6	6000HRSERVICE	6000 Operating Hour Service
+7	ABBGCB10YR	ABB (SF6) Circuit Breaker 10-year Maintenance
+8	ABBGCB10YR	ABB (SF6) Circuit Breaker 10-year Maintenance
+9	ABBGCB145PM63B	ABB 145 PM 63 B 132 kV Gas Circuit Breaker 5 year Maintenance
+10	ABBGCB242OMR5YR	ABB (242 PMR) Gas Circuit Breaker 5 year Maintenance
+11	ABBGCB245PMG5YR	ABB (245 PMG) Gas Circuit Breaker 5 year Maintenance
+12	ABBGCB5YR	ABB (SF6) Gas Circuit Breaker 5-year Maintenance
+13	ABBGCB66KV10YR	ABB (72 PM 31-20) Circuit Breaker 10-year Maintenance
+14	ABBGCB66KV5YR	ABB (72 PM 31-20) Gas Circuit Breaker 5-year Maintenance
+15	ABBRMAG5YR	ABB R MAG 33KV Vacuum Circuit Breaker 5 year Maintenance
+16	ABBRMAG5YR	ABB R MAG 33KV VACUUM CIRCUIT BREAKER 5 YEAR
+17	ABSIRTEMP	Hot spot repair works on an air break switch
+18	AIRCON3MTH	Quarterly Maintenance Of Air-Conditioning System
+19	ALSTOM/AREVA1GCB10YR	ALSTOM/AREVA (GL 309) Gas Circuit Breaker 10-year Maintenance
+20	ALSTOM/AREVA1GCB5YR	ALSTOM/AREVA (GL 309) Gas Circuit Breaker 5-year Maintenance
+21	ALSTOM/AREVA2GCB10YR	ALSTOM/AREVA (GL 312F1) Gas Circuit Breaker 10-year Maintenance
+22	ALSTOM/AREVA2GCB5YR	ALSTOM/AREVA (GL 312F1) Gas Circuit Breaker 5-year Maintenance
+23	ALSTOM/AREVA3GCB10YR	ALSTOM/AREVA (HG12) Gas Circuit Breaker 10-year Maintenance
+24	ALSTOM/AREVA3GCB5YR	ALSTOM/AREVA (HG12) Gas Circuit Breaker 5-year Maintenance
+25	ALSTOM/AREVAGCB10YR	ALSTOM/AREVA (DT1 72.5 F1) Gas Circuit Breaker 10-year Maintenance
+26	ALSTOM/AREVAGCB5YR	ALSTOM/AREVA  (DT1 72.5 F1) Gas Circuit Breaker 5-Year Maintenance
+27	ALSTOM/AREVAVCB5YR	ALSTOM/AREVA (VOX) VACUUM CIRCUIT BREAKER 5-YEAR MAINTENANCE
+28	AUTORECLOIRTEMP	Hot spot repair works on an auto recloser
+29	BAT2WK	Fortnightly Preventative Maintenance Of Batteries
+30	BATTANLYSR	Battery Analyser Test Procedure
+31	BBINSP	General Inspection Of Busbars
+32	BJU	Maintain Electrical Contacts in the following panels:  Pump House - BJU901, BJC901, Oily water trans
+33	BLE901/2	Maintain Elec. Cont. in the BLE901 Firefighting Electrical Pump Control Panel
+34	BLQ021MAIN	Maintain Engine 2 generator ventilation fan BLQ021.
+35	BUSBARIRTEMP	Hot spot repair works on a busbar
+36	BUSHINGCLEAN	Clean Bushing
+37	BUSHINGCLEAN	Clean Bushing
+38	BUSHINGCLEAN	Clean Bushing
+39	BUSHREP	Replace Bushings
+40	BUSHSEAL	Seal Transformer Bushing
+41	CAPIRTEMP	Hot spot repair works for Capacitor Bank
+42	CBIRTEMP	Hot spot repair works on a circuit breaker
+43	CFA901PANEL	Maintain electrical contacts in the CFA901 Panel (Visual Inspection)
+44	CHANGEINJECTOR	Change injector(s) ______________ on CPS#___
+45	CIRCUITIRTEMP	Hot spot repair works on a circuit
+46	CLEANCANDLEFILTER	Clean candle Filters
+47	CLEANCANDLEFILTER	Clean candle Filters
+48	CLEANENGINEHALL	Clean engine hall
+49	CLEANINJECTORROOM	Clean Injector Room
+50	CLEANTOOLROOM	Clean and organize tool room
+51	CLEANVISCOSINE	Remove sludge and debris from CPS#3 charge air filter viscosine reservoir.
+52	CLEANWORKSHOP	Clean Workshop in CPS
+53	COMMISO	Installation and Commissioning of Isolator
+54	COMPOUND	Compound Maintenance
+55	COMPOUND2	Substation Compound Maintenance
+56	CONTACTRESISTANCEREPAIRS	Contact Resistance Corrective Works
+57	COVESTATIONCHECK	Cove station check
+58	CPLOAN	Cell Phone Communications Loaner
+59	CPLS	Cell Phone Lost / Stolen
+60	CPPOH	Cell Phone Purchase - Old Handset
+61	CPSS	Cell Phone Sim Swap
+62	CPUWAT	Cell Phone User Wear And Tear
+63	CTIRTEMP	Hot spot repair works on a current transformer
+64	D12KVCB1YRMTCE	Distribution 12kV Circuit Breaker Annual Maintenance
+65	D1YRINSPSSST	Distribution Annual Inspection of Substation Structures
+66	D33/66KVCB1YRMTCE	Distribution 33/66kV Circuit Breaker Annual Maintenance
+67	DCGMAINTCBMANREC	Distribution - Conduct General Maintenance of Circuit Breakers based on number of operations
+68	DECOMMCOMMCB	Decommissioning/Commissioning of Circuit Breaker
+69	DECOMMCOMMVT	Decommission, Install and Commission Voltage Transformer
+70	DEFBB	Replacement of Defective Battery Bank Cell (Individual or Multiple)
+71	DGA	DGA testing job plan
+72	DISMANTLECANDLEFILTER	Dismantle candle filters
+73	DISOL2YRPM	Distribution Isolator Switch Two Year Preventative Maintenance
+74	DISOL2YRPM	Distribution Isolator Switch Two Year Preventative Maintenance
+75	DISTREPOILLEAKSSTF	Distribution - Repair Oil Leak for Substation Power Transformer
+76	DLLJP	Distribution Lower Limit Job Plan
+77	DLLJP	Lower Limit Job Plan
+78	DLOWERHOTEMPTF	Distribution to Lower High Operating Temperature of Transformer
+79	DMTHBCBBMTCE	Distribution Monthly Battery Charger & Battery Bank Maintenance
+80	DNTAPPOSTF	Distribution to Normalize Tap Position of Transformer
+81	DPADTF1YRINSP	Distribution Pad-Mount Transformer Annual Inspection
+82	DREPAIR SPRCCCB	Distribution to Repair Spring Charge Circuit for Circuit Breaker
+83	DREPAIRGLCB	Distribution to Repair Gas Leak for Circuit Breaker
+84	DREPLACEDEFBCBB	Distribution - Replace Defective Battery Cell/s in Battery Bank
+85	DREPLACESGELTF	Distribution to Replace Silica Gel for Transformer
+86	DRMU6MTHINSP	Distribution RMU Bi-annual Inspection
+87	DRMUMAINT	Distribution RMU Maintenance
+88	DSSWKINSP	Distribution Substation Weekly Inspection
+89	DTF1YRMTCE	Distribution Transformer Annual Maintenance
+90	DTFK1YRINSP	Distribution Transformer Kiosk Annual Inspection
+91	DTFKIOSKMAINT	Distribution Transformer Kiosk Maintenance
+92	DULJP	Distribution Upper Limit Job Plan
+93	DULJP	Upper Limit Job Plan
+94	EASW2YR	Two Year Preventative Maintenance Of Earth Switch
+95	EASWINSP	General Inspection Of Earth Switch
+96	ELECCONTACTS6&7	Maintain Electrical Contacts in Engines 6 and 7 electrical panels.
+97	ENERGIZE	Energizing Switching Procedure
+98	ENERGIZE	Energizing Switching Procedure
+99	FP2MTH	Two Month Inspection Of Fire Protection Equipment
+100	FP5YR	Five Year Preventative Maintenance For Fire Protection Equipment
+101	FULLCANDLES	Dismantle candle filter canister, soak and clean the elements, and rebuild the candle filters.
+102	FULLFUELFILTERS	Dismantle main fuel filters, soak and clean elements, and rebuild Filter units
+103	GASHYDCHK	Gas and Hydraulic/Air Pressure Check
+104	GCB1YR	Annual Preventative Maintenance For Gas Circuit Breakers
+105	GCB1YR2017	Annual Preventative Maintenance for Gas Circuit Breakers
+106	GCB2YR	Two Year Preventative Maintenance For Gas Circuit Breakers
+107	GCBINSP	General Inspection Of Gas Circuit Breakers
+108	GCBMTC1YR	Annual Maintenance for Gas Circuit Breaker
+109	GCBTEST	Tests for Gas Circuit Breaker
+110	GENMAINT3	Maintaining the Generator (3 months)
+111	GNDTERM	Ground terminals
+112	GRMU1YR	Yearly Preventative Maintenance Of Gas RMU
+113	GRMU2WK	General Inspection Of Gas RMU
+114	HOUSEKEEP	Substation Housekeeping
+115	HOUSEKEEP	Substation Housekeeping
+116	HVMAB	Maintenance of Air Brakes for Vehicles with Hydraulics
+117	HVMCOSYSLA	Maintenance of Cooling System for Vehicles with Hydraulics (3333KM)
+118	HVMCOSYSLB	Maintenance of Cooling System for Vehicles with Hydraulics (40000KM-80000KM)
+119	HVMELCLA	Maintenance of Electrical Components for Vehicles with Hydraulics (3333KM)
+120	HVMELCLB	Maintenance of Electrical Components for Vehicles with Hydraulics (40000KM-80000KM)
+121	HVMENG	Maintenance of Engine for Vehicles with Hydraulics
+122	HVMFWALA	Maintenance of Front Wheel Axle for Vehicles with Hydraulics (3333KM)
+123	HVMFWALB	Maintenance of Front Wheel Axle for Vehicles with Hydraulics (40000KM-80000KM)
+124	HVMRALA	Maintenance of Rear Axle for Vehicles with Hydraulics (3333KM)
+125	HVMRALB	Maintenance of Rear Axle for Vehicles with Hydraulics (40000KM-80000KM)
+126	HVMSTRLA	Maintenance of Steering Components for Vehicles with Hydraulics (3333KM)
+127	HVMSTRLB	Maintenance of Steering Components for Vehicles with Hydraulics (40000KM-80000KM)
+128	HVMTRHS	Maintenance of Transmission and Hydraulic System for Vehicles with Hydraulics
+129	INSULATIONRESISTANCEREPAIRS	Insulation Resistance Corrective Works
+130	IRINSP	Infra Red Inspection Of Substation
+131	ISOL2YR	Two Year Preventative Maintenance of Isolator (Without) Earth Switch
+132	ISOLATE	Isolation Switching Procedure
+133	ISOLATE	Isolation Switching Procedure
+134	ISOLEASW2YR	Two Year Preventative Maintenance Of Isolator With Earth Switch
+135	ISOLEASWINSP	General Inspection Of Isolator With Earth Switch
+136	ISOLINSP	General Inspection Of Isolator (Without Earth Switch)
+137	ISOLIRTEMP	Hot spot repair works on an isolator
+138	LA1YR	Annual Preventative Maintenance For Lightning Arrestor
+139	LAINSP	General Inspection Of Lightning Arrester
+140	LARRESTIRTEMP	Hot spot repair works on a lightning arrestor
+141	LLIRTEMP	Lower Limit Correction Job Plan for an IRTEMP meter
+142	LOWCONTACTRESISTANCE	LOW CONTACT RESISTANCE
+143	LV14TO6WKS	Level 1 Ground Patrol (4-6wks)
+144	LV16MTH	Level 1 Ground Patrol (6 Mth)
+145	LV22YR	Level 2 Ground Patrol (2 Year)
+146	LV35YR	Level 3 Ground Patrol (5 Year)
+147	MAINENG	Maintain Engine : Install, Test and Replace various components(36Kh Overhaul)
+148	MAINTCA901&902	Maintain Instrument Air Dryers TCA901 and TCA902
+149	MAINTENG2	"Maintain Engine 2: Install liner temperature sensors, Check and secure wiring between cylinder head
+150	MITSUBISHIGCB5YR	Mitsubishi (120-SFMT-40E) Gas Circuit Breaker 5-year Maintenance
+151	MITSUBISHIGCB66KV5YR	Mitsubishi (70 SFMT 40E) Gas Circuit Breaker 5 Year Maintenance
+152	MOISTURE	Moisture content testing job plan
+153	MTCSEPTANK	Maintenance of Septic Tank
+154	NORMALIZE	Normalize
+155	NORMALIZE	Normalize
+156	OCB1YR	Annual Preventative Maintenance For Oil Circuit Breakers
+157	OCB5YR	Five Year Preventative Maintenance For Oil Circuit Breakers
+158	OCBMTC1YR	Annual Maintenance for Oil Circuit Breaker
+159	OCBTEST	Tests for Oil Circuit Breaker
+160	OCEM2YR	Two Year Preventative Maintenance For Electromechanical Overcurrent Relays
+161	OILTEMP	Oil temperature
+162	PADMTCE	Padmounted transformer maintenance
+163	PESTCONTROL	Pest Control
+164	PHREQSTA	Cell Phone Request Status
+165	RAZOA2YR	Two Year Preventative Maintenance For RAZOA Static Distance Relays
+166	REBUILDINJECTORS	Rebuild injectors
+167	REPAIRBSHOIL	Repair Oil Leak for Bushing
+168	REPAIRBSHOIL	Repair Oil Leak for Bushing
+169	REPAIRDEFEQUIP	Repair Defective Equipment
+170	REPAIRDEFEQUIP	Repair Defective Equipment
+171	REPAIRETH	Repair Earth Connection
+172	REPAIRETH	Repair Earth Connection
+173	REPAIRLVOLTBUSH	Repair low voltage bushing
+174	REPLACEDEFEQUIP	Replace Defective Equipment
+175	REPLACEDEFEQUIP	Replace Defective Equipment
+176	RMUIRTEMP	Hot spot repair works on a ring main unit
+177	SANIFOG	Sanitization - Fogging Treatment
+178	SCARBOROUGHSTATIONCHECK	Scarborough Station Check
+179	SEIMENSGCB10YR	SEIMENS (8DA10) Gas Circuit Breaker 10-year Maintenance
+180	SEIMENSGCB20YR	SEIMENS (8DA10) Gas Circuit Breaker 20-year Maintenance
+181	SEIMENSGCB5YR	SEIMENS (8DA10) Gas Circuit Breaker 5-year Maintenance
+182	SERVICEINSTRUMENTAIR	Service 90_ Instrument Air Compressor
+183	SERVICESTARTAIR	Service start air compressor
+184	SIEMENS132KV10YR	SIEMENS SPS2 145 (SF6) Gas Circuit Breaker 10-year Maintenance
+185	SIEMENS132KV20YR	SIEMENS SPS2 145 (SF6) Gas Circuit Breaker 20-year Maintenance
+186	SIEMENS132KV5YR	SIEMENS SPS2 145 (SF6) Gas Circuit Breaker 5-year Maintenance
+187	SIEMENS66KV10YR	SIEMENS SPS2 72.5 (SF6) Gas Circuit Breaker 10-year Maintenance
+188	SIEMENS66KV20YR	SIEMENS SPS2 72.5 (SF6) Gas Circuit Breaker 20-year Maintenance
+189	SIEMENS66KV5YR	SIEMENS SPS2 72.5 (SF6) Gas Circuit Breaker 5-year Maintenance
+190	SS1MTH	Monthly Inspection Of Substation
+191	SS2WK	Fortnightly Inspection Of Substation
+192	SS2WKBAM132	Fortnightly Inspection Of Substation - Bamboo 132 kV
+193	SS2WKBAM66	Fortnightly Inspection Of Substation - Bamboo 66 kV
+194	SS2WKBAR	Fortnightly Inspection Of Substation - Barataria
+195	SS2WKBC132	Fortnightly Inspection Of Substation - Brechin Castle 132 kV
+196	SS2WKBC66	Fortnightly Inspection Of Substation - Brechin Castle 66 kV
+197	SS2WKDEB	Fortnightly Inspection Of Substation - Debe
+198	SS2WKFYZ	Fortnightly Inspection Of Substation - Fyzabad
+199	SS2WKGV	Fortnightly Inspection of Substation - Gandhi Village
+200	SS2WKGWY	Fortnightly Inspection Of Substation - Gateway
+201	SS2WKHHL	Fortnightly Inspection Of Substation - Harmony Hall
+202	SS2WKMTH	Fortnightly Inspection Of Substation - Mt. Hope
+203	SS2WKMTP	Fortnightly Inspection Of Substation - Mt. Pleasant
+204	SS2WKNOR	Fortnightly Inspection Of Substation - North Oropouche
+205	SS2WKPEN	Fortnightly Inspection Substation - Penal P/S
+206	SS2WKPRD	Fortnightly Inspection Of Substation - Pinto Road
+207	SS2WKPTF	Fortnightly Inspection Of Substation - Point Fortin
+208	SS2WKRFM	Fortnightly Inspection Of Substation - Reform
+209	SS2WKRIO	Fortnightly Inspection Of Substation - Rio Claro
+210	SS2WKSRF	Fortnightly Inspection Of Substation - San Rafael
+211	SS2WKSTM	Fortnightly Inspection Of Substation - St. Mary's
+212	SS2WKTOL	Fortnightly Inspection Of Substation - Toco Link
+213	SS2WKUNN220	Fortnightly Inspection Of Substation - Union 220 kV
+214	SS2WKUNN66	Fortnightly Inspection Of Substation - Union 66 kV
+215	SS2WKWAL	Fortnightly Inspection Of Substation - Wallerfield
+216	SS2WKWES	Fortnightly Inspection Of Substation - Westmoorings
+217	SS2WKWRD	Fortnightly Inspection Of Substation - Wrightson Road
+218	SS3MTH	Infra Red Inspection Of Substation
+219	SS6MTH	Semi-Annual Inspection Of Substation
+220	SSCHECKRELAY	Check/Record Relay
+221	SSCHECKRELAY	Check/Record Relay
+222	SSCLEANOIL	Clean Oil Spill
+223	SSCLEANOIL	Clean Oil Spill
+224	SSCONTACTMFT	Contact Manufacturer
+225	SSCONTACTMFT	Contact Manufacturer
+226	SSIRTEMP	Substation Hot Spot Repair Works
+227	SSLABEL	Replace label
+228	SSLABEL	Replace label
+229	SSPRTFTEST	Substation Protection Transformer Test
+230	SSPRTFTEST	Substation Transformer Mechanical Protective Device Test
+231	SSPRTFTESTIR	Substation Transformer Insulation Resistance Test
+232	SSPRTFTESTIR	Substation Transformer Insulation Resistance Test
+233	SSPRTFTESTPF	Substation Transformer Power Factor Test
+234	SSPRTFTESTPF	Substation Transformer Power Factor Test
+235	SSPRTFTESTPI	Substation Transformer Polarization Index Test
+236	SSPRTFTESTTR	Substation Transformer Turns Ratio Test
+237	SSPRTFTESTTR	Substation Transformer Turns Ratio Test
+238	SSPRTFTESTWR	Substation Transformer Winding Resistance Test
+239	SSPRTFTESTWR	Substation Transformer Winding Resistance Test
+240	SSREMOVEMOISTBSH	Remove Bushing Moisture
+241	SSREMOVEMOISTBSH	Remove Bushing Moisture
+242	SSTF10YR	Ten Year Preventative Maintenance For Power Transformer
+243	SSTF10YROIL	Ten Year DGA And Oil Testing Of Main Tank Oil In Power Transformer
+244	SSTF1YR	One Year Preventative Maintenance For Power Transformer
+245	SSTF1YR	One Year Preventative Maintenance For Power Transformer
+246	SSTF1YR	One Year Preventative Maintenance For Power Transformer
+247	SSTF1YROIL	Annual DGA And Oil Testing Of Main Tank Oil In Power Transformer
+248	SSTF2YR	Two Year Preventative Maintenance For Power Transformer
+249	SSTF3YR	Three Year Preventative Maintenance for Power Transformer
+250	SSTF3YR	Three Year Preventative Maintenance for Power Transformer
+251	SSTF5YR	Five Year Preventative Maintenance For Power Transformer
+252	SSTF6MTH	Semi-Annual Inspection Of Power Transformer
+253	SSTF6MTHOIL	Semi-Annual DGA And Oil Testing Of Main Tank Oil In Power Transformer
+254	SSTF6YR	Six Year Preventative Maintenance For Power Transformer
+255	SSTFAR01	Regeneration Of Silica Gel
+256	SSTFAR02	Top-Up Of Oil Level In Breather
+257	SSTFBUSHREP	Replace Transformer Bushing(s)
+258	SSTFBUSHREP	Replace Transformer Bushing(s)
+259	SSTFBUSHSEAL	Seal Transformer Bushing(s)
+260	SSTFFILTER	Filter Transformer
+261	SSTFFILTER	Filter Transformer Oil
+262	SSTFINSP	Inspection Of Power Transformer
+263	SSTFINSP	Visual Inspection Of Power Transformer
+264	SSTFIRTEMP	Hot spot repair works on a substation transformer
+265	SSTFLOWERTEMP	Lower Transformer High Operating Temperature
+266	SSTFLOWERTEMP	Lower Transformer High Operating Temperature
+267	SSTFMTCE1YR	Transformer Annual Maintenance
+268	SSTFOILSAMPLE	Oil Sampling for Oil Diagnosis of Power Transformer
+269	SSTFOILSAMPLE	Oil Sampling for Oil Diagnosis of Power Transformer
+270	SSTFOILTEST	Transformer oil diagnosis
+271	SSTFOILTEST	Transformer oil diagnosis
+272	SSTFREPAIRAVR	Repair Transformer Automatic Voltage Regulator Scheme
+273	SSTFREPAIRAVR	Troubleshoot Transformer Automatic Voltage Regulator Scheme
+274	SSTFREPLACESGL	Replace Transformer Silica Gel
+275	SSTFREPLACESGL	Replace Transformer Silica Gel
+276	SSTFREPLACESOIL	Replace Transformer Breather Sealing Oil
+277	SSTFREPLACESOIL	Replace Transformer Breather Sealing Oil
+278	SSTFREPOIL	Replace Transformer Oil
+279	SSTFTAPPOS	Normalize Tap Position of Transformer
+280	SSTFTAPPOS	Normalize Tap Position of Transformer
+281	SSTFTEST	Transformer Testing
+282	SSTFTOPOIL	Replace/Top-up Transformer Oil
+283	SSTFTOPOIL	Top up Transformer Oil
+284	SSTFVISINSP	Transformer Visual Inspection
+285	SUMPPUMP	Service and clean sump pump
+286	SUPPLYWATER	Supply truck borne water
+287	TESTANDINSTVTS	Test and Install Voltage Transformers
+288	TFREPAIROILLEAK	Repair Transformer Oil Leak
+289	TFREPAIROILLEAK	Repair Transformer Oil Leak
+290	THRNS2YR	Two Year Preventative Maintenance For THR Non-Switch Static Distance Relays
+291	TOPUPMAINTENANCE	Top up Maintenance Water Tank
+292	TOPUPTLOANDGC	Top up Gas Compressor oil and Turbine lube oil
+293	TROUBLESHOOTINJECTOR	Troubleshoot injector(s) ______________ on CPS#___
+294	VACUUMINTEGRITYREPAIRS	Vacuum Integrity Corrective Works
+295	VCB1YR	Annual Preventative Maintenance For Vacuum Circuit Breakers
+296	VCB5YR	Five Year Preventative Maintenance For Vacuum Circuit Breakers
+297	VCBINSP	General Inspection Of Vacuum Circuit Breakers
+298	VCBMTC1YR	Annual Maintenance for Vacuum Circuit Breaker
+299	VCBTAMCO	Maintenance of TAMCO Circuit Breakers
+300	VCBTAMCO	Maintenance of TAMCO Circuit Breakers
+301	VCBTEST	Tests for Vacuum Circuit Breaker
+302	VENTFAN	Maintain Engine __ Engine Ventilation Fans.
+303	VENTFAN2	Maintain engine __ engine ventilation fan
+304	VENTFAN3	Maintain engine __ engine ventilation fan
+305	VENTUNIT	Maintain engine 2 exhaust gas ventilation unit
+306	VOXVCB5YR	VOX Vaccum Circuit Breaker 5-yr Maintenance
+307	VRMU1YR	Yearly Preventative Maintenance Of Vacuum RMU
+308	VRMU2WK	General Inspection Of Vacuum RMU
+309	VTIRTEMP	Hot spot repair works on a voltage transformer
+310	WECS	Maintaining the WECS 8000 system of Engine #     at Cove Power Station (M/C#    )
+311	WINDTEMP	Winding temperature
+312	WKSSINSP	Substation weekly inpsection
