@@ -1,0 +1,19 @@
+<template>
+    <h1>Asset Summary</h1>
+    <div>
+        <div class="flex space-x-2">
+            <!-- Add New Job Plan Button -->
+            <Button @click="addNewJobplan" size="small" class="bg-green-600 hover:bg-green-700">
+                <Icon name="material-symbols:add" size="1rem" class="mr-1" />
+                Add New Job Plan
+            </Button>
+        </div>
+    </div>
+</template>
+
+<script lang="ts" setup>
+
+const addNewJobplan = () => {
+    navigateTo('/asset/AddAssetForm')
+}
+</script>

@@ -1,0 +1,65 @@
+*************Project run
+dotnet build
+dotnet run
+dotnet watch -lp https 
+
+*****************Publish App
+dotnet publish -c Release -p:UseAppHost=false
+
+
+*****************Create migrations
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+
+
+
+npx kill-port 5001
+
+# Create local certificate:
+dotnet dev-certs https --clean
+dotnet dev-certs https -t
+
+dotnet dev-certs https --clean
+dotnet dev-certs https --trust
+
+dotnet clean
+dotnet build
+
+
+
+
+-- Kill Current Connection and Drop MSSQL DB: 
+USE [master]
+GO
+ALTER DATABASE [TWMSSDev] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE
+GO
+USE [master]
+GO
+DROP DATABASE [TWMSSDev]
+GO
+
+
+
+************************common query
+use TWMSSDev
+select * from tblJob_Plans_Headers
+
+select * from tblAssets_Classes
+
+select * from tblJob_Plans_Lines
+
+
+delete from JobPlansHeaders
+delete from JobPlansLines
+delete from tblAssets_Classes
+
+
+
+*****swagger
+http://localhost:3000/jobplan
+http://localhost:5145/swagger/index.html
+
+
+
+

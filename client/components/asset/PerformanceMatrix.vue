@@ -1,0 +1,212 @@
+<template>
+  <div>
+    <!-- Loading State -->
+    <div v-if="isLoading" class="flex justify-center items-center p-8">
+      <div class="flex items-center space-x-2">
+        <Icon name="material-symbols:progress-activity" class="animate-spin" size="1.5rem" />
+        <span>Loading performance data...</span>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div v-else-if="hasError"
+      class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4 mb-5">
+      <div class="flex items-center space-x-2 text-red-600 dark:text-red-400">
+        <Icon name="material-symbols:error-outline" size="1.5rem" />
+        <span class="font-medium">Error loading performance data</span>
+      </div>
+      <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ error }}</p>
+      <Button @click="refreshData" size="small" severity="secondary" class="mt-3" :loading="isLoading">
+        <Icon name="material-symbols:refresh" size="1rem" class="mr-1" />
+        Retry
+      </Button>
+    </div>
+
+    <!-- Main Content -->
+    <div v-else class="space-y-5">
+      <!-- Header with Actions -->
+      <div class="bg-white dark:bg-neutral-800 rounded-md border border-green-500 dark:border-green-800 p-4 shadow-xl">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">
+            Performance Matrix
+            <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-2">
+              ({{ matrix.length }} total)
+            </span>
+          </h2>
+          <div class="flex space-x-2">
+            <Button @click="addEntry" size="small" class="bg-green-600 hover:bg-green-700">
+              <Icon name="material-symbols:add" size="1rem" class="mr-1" />
+              Add New Entry
+            </Button>
+            <Button @click="refreshData" size="small" severity="secondary" :loading="isLoading">
+              <Icon name="material-symbols:refresh" size="1rem" />
+            </Button>
+          </div>
+        </div>
+        <!-- Filters -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <div class="relative">
+            <Icon name="material-symbols:search"
+              class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size="1rem" />
+            <InputText v-model="searchTerm" placeholder="    Search performance..." class="pl-10 w-full" />
+            <button v-if="searchTerm"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-full p-1"
+              @click="clearSearch">
+              <Icon name="material-symbols:close" size="1rem" class="text-gray-600 dark:text-gray-400" />
+            </button>
+          </div>
+          <div class="md:col-span-2"></div>
+        </div>
+        <!-- Data Table -->
+        <DataTable :value="filteredMatrix" class="w-full" striped-rows responsive-layout="scroll">
+          <Column field="dateOfFailure" header="Date of Failure" sortable>
+            <template #body="{ data }">
+              <span class="font-mono text-sm">{{ data.dateOfFailure }}</span>
+            </template>
+          </Column>
+          <Column field="workOrderNo" header="Work Order / Trouble Report No" sortable />
+          <Column field="failureMode" header="Failure Mode" sortable />
+          <Column field="failureCause1" header="Failure Cause 1" sortable />
+          <Column field="failureCause2" header="Failure Cause 2" sortable />
+          <!-- Actions -->
+          <Column header="Actions" style="width: 140px">
+            <template #body="{ data }">
+              <div class="flex space-x-1">
+                <Button @click="editEntry(data)" size="small" severity="secondary" v-tooltip="'Edit Entry'">
+                  <Icon name="material-symbols:edit-square-outline" size="1rem" />
+                </Button>
+                <Button @click="deleteEntry(data)" severity="danger" size="small" v-tooltip="'Delete Entry'">
+                  <Icon name="material-symbols:delete-outline" size="1rem" />
+                </Button>
+              </div>
+            </template>
+          </Column>
+        </DataTable>
+      </div>
+    </div>
+    <Toast />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import Button from 'primevue/button'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import InputText from 'primevue/inputtext'
+import Toast from 'primevue/toast'
+import { useToast } from 'primevue/usetoast'
+
+// Dummy matrix data
+const getDummyMatrix = () => [
+  {
+    id: 1,
+    dateOfFailure: '2024-06-01',
+    workOrderNo: 'WO-20240601-001',
+    failureMode: 'Overheating',
+    failureCause1: 'Poor Ventilation',
+    failureCause2: 'Ambient Temperature'
+  },
+  {
+    id: 2,
+    dateOfFailure: '2024-06-03',
+    workOrderNo: 'WO-20240603-002',
+    failureMode: 'Insulation Breakdown',
+    failureCause1: 'Aging',
+    failureCause2: 'Moisture Ingress'
+  },
+  {
+    id: 3,
+    dateOfFailure: '2024-05-23',
+    workOrderNo: 'TR-20240523-003',
+    failureMode: 'Short Circuit',
+    failureCause1: 'Loose Connection',
+    failureCause2: 'Foreign Object'
+  },
+  {
+    id: 4,
+    dateOfFailure: '2024-06-05',
+    workOrderNo: 'WO-20240605-004',
+    failureMode: 'Mechanical Failure',
+    failureCause1: 'Bearing Wear',
+    failureCause2: 'Improper Lubrication'
+  },
+  {
+    id: 5,
+    dateOfFailure: '2024-05-29',
+    workOrderNo: 'TR-20240529-005',
+    failureMode: 'Corrosion',
+    failureCause1: 'Chemical Exposure',
+    failureCause2: 'Lack of Coating'
+  }
+]
+
+const isLoading = ref(false)
+const hasError = ref(false)
+const error = ref('')
+const matrix = ref(getDummyMatrix())
+const searchTerm = ref('')
+const dateFilter = ref('')
+
+// Stats
+const matrixStats = computed(() => {
+  const total = matrix.value.length
+  const now = new Date()
+  const thisMonth = matrix.value.filter(entry => {
+    const date = new Date(entry.dateOfFailure)
+    return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear()
+  }).length
+  // Repeated: If same failure mode appears more than once
+  const modeCounts: Record<string, number> = {}
+  matrix.value.forEach(e => { modeCounts[e.failureMode] = (modeCounts[e.failureMode] || 0) + 1 })
+  const repeated = Object.values(modeCounts).filter(v => v > 1).length
+  return { total, thisMonth, repeated }
+})
+
+const filteredMatrix = computed(() => {
+  let data = matrix.value
+  if (searchTerm.value) {
+    const search = searchTerm.value.toLowerCase()
+    data = data.filter(
+      e =>
+        e.dateOfFailure.includes(search) ||
+        e.workOrderNo.toLowerCase().includes(search) ||
+        e.failureMode.toLowerCase().includes(search) ||
+        e.failureCause1.toLowerCase().includes(search) ||
+        e.failureCause2.toLowerCase().includes(search)
+    )
+  }
+  if (dateFilter.value) {
+    data = data.filter(e => e.dateOfFailure === dateFilter.value)
+  }
+  return data
+})
+
+const toast = useToast()
+
+function addEntry() {
+  toast.add({ severity: 'info', summary: 'Add Entry', detail: 'Implement add entry modal or navigation', life: 2500 })
+}
+function editEntry(rowData: any) {
+  toast.add({ severity: 'info', summary: 'Edit Entry', detail: `Implement edit for ${rowData.workOrderNo}`, life: 2500 })
+}
+function deleteEntry(rowData: any) {
+  if (confirm(`Delete entry "${rowData.workOrderNo}"? (Implement Later)`)) {
+    toast.add({ severity: 'warn', summary: 'Delete Entry', detail: `Implement delete for ${rowData.workOrderNo}`, life: 2500 })
+  }
+}
+function refreshData() {
+  isLoading.value = true
+  setTimeout(() => {
+    matrix.value = getDummyMatrix()
+    isLoading.value = false
+    hasError.value = false
+  }, 800)
+}
+function exportMatrix() {
+  toast.add({ severity: 'info', summary: 'Export', detail: 'Export functionality will be implemented', life: 2500 })
+}
+function clearSearch() {
+  searchTerm.value = ''
+}
+</script>

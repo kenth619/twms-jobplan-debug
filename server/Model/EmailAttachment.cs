@@ -1,0 +1,12 @@
+namespace TWMSServer.Model
+{
+    public class EmailAttachment
+    {
+        public int EmailAttachmentId { get; set; }
+        public string FilePath { get; set; } = string.Empty;
+        public string OriginalFileName { get; set; } = string.Empty;
+        public string? ContentType { get; set; }
+
+        public int EmailDataId { get; set; }
+    }
+}
